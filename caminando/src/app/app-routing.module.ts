@@ -4,11 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
+  /*
   { path: '', 
     loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule) ,
     title: "Welcome to Caminando"
   },
-  { path: 'auth',
+  */
+  { path: '',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule), 
     title: "Caminando"
   }, 

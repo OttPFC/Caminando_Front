@@ -1,15 +1,12 @@
-<div>
-    <h2>Register</h2>
-    <form (ngSubmit)="register()">
-      <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" [(ngModel)]="username" name="username" required>
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required>
-      </div>
-      <button type="submit">Register</button>
-    </form>
-  </div>
-  
+<form (ngSubmit)="register()">
+  <input type="text" [(ngModel)]="user.firstName" name="firstName" placeholder="First Name" required>
+  <input type="text" [(ngModel)]="user.lastName" name="lastName" placeholder="Last Name" required>
+  <input type="text" [(ngModel)]="user.username" name="username" placeholder="Username" required>
+  <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required>
+  <input type="password" [(ngModel)]="user.password" name="password" placeholder="Password" required>
+  <label>
+    Admin:
+    <input type="checkbox" [(ngModel)]="user.admin" name="admin">
+  </label>
+  <button type="submit">Register</button>
+</form>
