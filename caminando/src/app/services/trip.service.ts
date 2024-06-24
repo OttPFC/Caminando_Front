@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ITrip } from '../interfaces/trip';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class TripService {
 
 
-  private apiUrl = 'http://localhost:8080/api/trip';
+  private apiUrl = environment.tripUrl;
 
   constructor(private http: HttpClient) { }
 

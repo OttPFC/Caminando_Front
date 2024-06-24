@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { IRegisterUser } from '../../interfaces/register-user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,28 +9,14 @@ import { IRegisterUser } from '../../interfaces/register-user';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  user: IRegisterUser = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    password: '',
-    admin: false
-  };
-  constructor(private authService: AuthService) { }
+  registerData:Partial<IRegisterUser> = {}
+  constructor(private authService: AuthService, private router:Router ) { }
 
-  register() {
-    this.authService.register(this.user).subscribe({
-      next: (response) => {
-        console.log('User registered successfully');
-        // Qui puoi aggiungere reindirizzamento o mostrare un messaggio di successo
-      },
-      error: (error) => {
-        console.error('Registration failed', error);
-        // Gestione dell'errore
-      }
-    });
+  signUp(){
+    this.authService.register(this.registerData)
+    .subscribe(data => {
+      this.router.navigate(['login'])
+    })
   }
   
 }

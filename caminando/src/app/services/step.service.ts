@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IStep } from '../interfaces/step';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StepService {
 
-  private apiUrl = 'http://localhost:8080/api/steps';  // URL del backend
+  private apiUrl = environment.stepUrl;  // URL del backend
 
   constructor(private http: HttpClient) {}
 

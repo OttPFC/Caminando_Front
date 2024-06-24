@@ -10,7 +10,7 @@ import { ILoginUser } from '../../interfaces/login-user';
 })
 export class LoginComponent {
   login: ILoginUser = {
-    username: '',
+    email: '',
     password: ''
   }
 
@@ -22,7 +22,7 @@ export class LoginComponent {
   signIn() {
     this.authSvc.login(this.login).subscribe({
       next: (data) => {
-        this.router.navigate(['/homepage']);
+        this.router.navigate(['/home']);
         console.log('Login successful');
       },
       error: (error) => {
