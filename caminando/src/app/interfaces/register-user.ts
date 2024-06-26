@@ -5,5 +5,5 @@ export interface IRegisterUser {
     username:string;
     email:string;
     password:string;
-    admin?:boolean;
+    roles:string
 }

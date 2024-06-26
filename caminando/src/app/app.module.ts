@@ -7,13 +7,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StepComponent } from './components/step/step.component';
+import { PositionComponent } from './components/position/position.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    StepComponent
+    StepComponent,
+    PositionComponent
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  /*
-  { path: '', 
-    loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule) ,
-    title: "Welcome to Caminando"
-  },
-  */
+  
   { path: '',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule), 
     title: "Caminando"
@@ -20,7 +15,7 @@ const routes: Routes = [
   { path: 'profilePage',
     loadChildren: () => import('./pages/profile-page/profile-page.module').then(m => m.  ProfilePageModule),
     title:"Caminando | Profile Page",
-    canActivate: [AuthGuard]
+    
   }, 
   { path: 'dashboard', 
     loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) ,

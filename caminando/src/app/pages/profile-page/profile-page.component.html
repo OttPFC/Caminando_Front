@@ -1,1 +1,19 @@
-<p>profile-page works!</p>
+<h2>WORK</h2>
+
+<div *ngFor="let user of users">
+  <p>{{ user.username }}</p>
+  <button (click)="getUserDetails(user.id)">View Details</button>
+</div>
+
+<div *ngIf="selectedUser">
+  <h2>User Details</h2>
+  <p>ID: {{ selectedUser.id }}</p>
+  <p>Username: {{ selectedUser.username }}</p>
+  <p>Email: {{ selectedUser.email }}</p>
+  <p>First Name: {{ selectedUser.firstName }}</p>
+  <p>Last Name: {{ selectedUser.lastName }}</p>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
