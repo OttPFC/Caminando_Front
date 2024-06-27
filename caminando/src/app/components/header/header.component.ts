@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IRegisterUser } from '../../interfaces/register-user';
+import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../../services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
+  user: IRegisterUser | undefined;
+
+  
+  
+  
+
+  constructor(private authSvc:AuthService) { }
+
+  ngOnInit() {
+    this.authSvc.user$.subscribe(user => {
+      this.user = user || undefined;
+    })
+  }
+
+  logout(){
+    this.authSvc.logout();
+  }
 }

@@ -1,19 +1,68 @@
-<h2>WORK</h2>
-
-<div *ngFor="let user of users">
-  <p>{{ user.username }}</p>
-  <button (click)="getUserDetails(user.id)">View Details</button>
-</div>
-
-<div *ngIf="selectedUser">
-  <h2>User Details</h2>
-  <p>ID: {{ selectedUser.id }}</p>
-  <p>Username: {{ selectedUser.username }}</p>
-  <p>Email: {{ selectedUser.email }}</p>
-  <p>First Name: {{ selectedUser.firstName }}</p>
-  <p>Last Name: {{ selectedUser.lastName }}</p>
-</div>
-
-<div *ngIf="errorMessage" class="error-message">
-  {{ errorMessage }}
-</div>
+<div class="container light-style flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-4">
+        Account settings
+        <p>{{user?.username}}</p>
+    </h4>
+  
+    <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+            <div class="col-md-3 pt-0">
+                <div class="list-group list-group-flush account-settings-links">
+                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list">Change password</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list">Info</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list">Social links</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list">Connections</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list">Notifications</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="account-general">
+                        <div class="card-body media align-items-center">
+                            <img src="" alt="" class="d-block ui-w-80 mb-3">
+                            <div class="media-body ml-4">
+                                <label class="btn btn-outline-primary">
+                                    Upload new photo
+                                    <input type="file" class="account-settings-fileinput">
+                                </label> &nbsp;
+                                <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+                                <div class="text-dark small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                            </div>
+                        </div>
+                        <hr class="border-light m-0">
+                        <div class="card-body">
+                            <form [formGroup]="userForm">
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-control mb-1" formControlName="username">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" formControlName="firstName">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cognome</label>
+                                    <input type="text" class="form-control" formControlName="lastName">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Città</label>
+                                    <input type="text" class="form-control" formControlName="place">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">E-mail</label>
+                                    <input type="text" class="form-control mb-1" formControlName="email">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right mt-3">
+            <button type="button" class="btn btn-primary" (click)="update()">Save changes</button>&nbsp;
+            <button type="button" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+  </div>
+  

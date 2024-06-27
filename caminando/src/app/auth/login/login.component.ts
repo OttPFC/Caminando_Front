@@ -22,7 +22,7 @@ export class LoginComponent {
   signIn() {
     this.authSvc.login(this.login).subscribe({
       next: (data) => {
-        this.router.navigate(['/profilePage']);
+        this.router.navigate(['/trip']);
         console.log('Login successful');
       },
       error: (error) => {

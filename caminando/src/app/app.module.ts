@@ -5,9 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StepComponent } from './components/step/step.component';
 import { PositionComponent } from './components/position/position.component';
+
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { PositionComponent } from './components/position/position.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, 
+    useClass: AuthInterceptor, 
+    multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

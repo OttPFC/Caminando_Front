@@ -1,0 +1,24 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './trip.component';
+import { CreateTripComponent } from './create/create-trip/create-trip.component';
+import { EditComponent } from '../../backOffice/edit/edit.component';
+import { ShowTripComponent } from './visual/show-trip/show-trip.component';
+
+const routes: Routes = [{ path: '', component: DashboardComponent },
+  {
+    path: "createTrip", component: CreateTripComponent,
+  },
+  {
+    path: "editTrip", component : EditComponent
+  },
+  {
+    path: "showTrip", component: ShowTripComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class DashboardRoutingModule { }

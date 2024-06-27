@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IRegisterUser } from '../../interfaces/register-user';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
+import { NavigationService } from '../../services/general/navigation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,55 +13,77 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class ProfilePageComponent implements OnInit {
   users: IRegisterUser[] = [];
-  selectedUser?: IRegisterUser;
+  user: IRegisterUser | undefined;
+  userForm: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private usrSvc: UserService, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private usrSvc: UserService, 
+    private authService: AuthService,
+    private navigationService: NavigationService,
+    private router: Router
+  ) {
+    this.userForm = this.fb.group({
+      username: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      place: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
 
   ngOnInit() {
-    console.log("start")
-    this.authService.authSubj.subscribe({
-      
+    const lastUrl = this.navigationService.getLastUrl();
+    console.log(lastUrl);
+    if (lastUrl && lastUrl !== this.router.url) {
+      this.router.navigateByUrl(lastUrl).then(() => {
+        this.loadUser();
+      });
+    } else {
+      this.loadUser();
+    }
+  }
+
+  loadUser() {
+    this.authService.user$.subscribe({
       next: (user) => {
-        console.log("start")
-        if (user && user.id) {
-          console.log("start")
-          console.log(user.id);
-          this.getUserDetails(user.id);
-          console.log("start")
+        this.user = user || undefined;
+        if (this.user) {
+          this.userForm.patchValue(this.user);
+          this.getUser(this.user.id);
         }
       },
       error: (err) => {
-        this.errorMessage = 'Failed to get user from AuthService';
-        console.error('Error fetching user from AuthService:', err);
+        this.errorMessage = 'Errore nel caricamento dell\'utente';
       }
     });
   }
 
-  loadUsers() {
-    this.usrSvc.getAllUsers(0, 10).subscribe({
-      next: (response) => {
-        this.users = response.content;
-        this.errorMessage = null;
-      },
-      error: (err) => {
-        this.errorMessage = 'Failed to load users';
-        console.error('Error fetching users:', err);
-      }
-    });
-  }
-
-  getUserDetails(id: number) {
+  getUser(id: number) {
     this.usrSvc.getUserById(id).subscribe({
       next: (user) => {
-        this.selectedUser = user;
-        this.errorMessage = null;
-        console.log('User details:', user);
+        this.user = user;
+        this.userForm.patchValue(user);
       },
-      error: (err) => {
-        this.errorMessage = 'Error fetching user details';
-        console.error('Error fetching user details:', err);
+      error: (error) => {
+        this.errorMessage = 'Errore nel recupero dell\'utente';
       }
     });
+  }
+
+  update() {
+    if (this.userForm.valid && this.user) {
+      const updatedUser = { ...this.user, ...this.userForm.value };
+      this.usrSvc.updateUser(this.user.id, updatedUser).subscribe({
+        next: () => {
+          console.log('Utente aggiornato con successo');
+        },
+        error: (error) => {
+          console.error('Errore durante l\'aggiornamento dell\'utente', error);
+          this.errorMessage = 'Errore durante l\'aggiornamento dell\'utente';
+        }
+      });
+    }
   }
 }
