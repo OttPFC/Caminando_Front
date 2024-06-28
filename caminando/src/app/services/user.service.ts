@@ -9,17 +9,15 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class UserService {
-
   private user = new Subject<IRegisterUser[]>();
   users$ = this.user.asObservable();
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  
   private getAuthHeaders(): HttpHeaders {
     const token = this.authService.getAccessToken();
     console.log('Retrieved Token:', token);  // Aggiungi questo log
-  if (!token) return new HttpHeaders();
+    if (!token) return new HttpHeaders();
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
@@ -28,13 +26,11 @@ export class UserService {
   }
 
   getUserById(id: number): Observable<IRegisterUser> {
-    return this.http.get<IRegisterUser>(`${environment.registerUrl}/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.get<IRegisterUser>(`${environment.userUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
 
-  
-
-  updateUser(id: number, username: string): Observable<IRegisterUser> {
-    return this.http.put<IRegisterUser>(`${environment.userUrl}/${id}`, { username }, { headers: this.getAuthHeaders() });
+  updateUser(id: number, user: IRegisterUser): Observable<IRegisterUser> {
+    return this.http.put<IRegisterUser>(`${environment.userUrl}/${id}`, user, { headers: this.getAuthHeaders() });
   }
 
   addUserRole(id: number, role: string): Observable<IRegisterUser> {
