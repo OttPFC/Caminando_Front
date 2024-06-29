@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import { IRegisterUser } from '../../interfaces/register-user';
 import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,18 +11,43 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class DashboardComponent implements OnInit {
   map!: mapboxgl.Map;
-
+  errorMessage: string | null = null;
   user: IRegisterUser | undefined;
-
-  constructor(private authSvc: AuthService){}
+  users: IRegisterUser[] = [];
+  constructor(private authService: AuthService, private usrSvc : UserService){}
   ngOnInit() {
     console.log('DashboardComponent#ngOnInit called');
     this.initializeMap();
-    this.authSvc.user$.subscribe(user => {
-      this.user = user || undefined;
-    })
+    
+    this.loadUser();
   }
 
+  loadUser() {
+    this.authService.user$.subscribe({
+      next: (user) => {
+        this.user = user || undefined;
+        if (this.user) {
+          
+          this.getUser(this.user.id);
+        }
+      },
+      error: (err) => {
+        this.errorMessage = 'Errore nel caricamento dell\'utente';
+      }
+    });
+  }
+
+  getUser(id: number) {
+    this.usrSvc.getUserById(id).subscribe({
+      next: (user) => {
+        this.user = user;
+        
+      },
+      error: (error) => {
+        this.errorMessage = 'Errore nel recupero dell\'utente';
+      }
+    });
+  }
   initializeMap() {
     
     (mapboxgl as typeof mapboxgl).accessToken = 'pk.eyJ1IjoiYWxlMDk3IiwiYSI6ImNsd3N5MmRnajAxM2UybHIxa3IyNThvaGIifQ.Yo5tbnRNwBRMt7u4lfauqA';

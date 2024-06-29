@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IRegisterUser } from '../interfaces/register-user';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { AuthService } from '../auth/auth.service';
@@ -9,8 +9,13 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class UserService {
-  private user = new Subject<IRegisterUser[]>();
+
+
+  private user = new BehaviorSubject<IRegisterUser[]>([]);
   users$ = this.user.asObservable();
+  
+  
+  userUrl = environment.registerUrl;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -22,11 +27,11 @@ export class UserService {
   }
 
   getAllUsers(page: number, size: number): Observable<any> {
-    return this.http.get<any>(`${environment.userUrl}?page=${page}&size=${size}`, { headers: this.getAuthHeaders() });
+    return this.http.get<any>(`${this.userUrl}?page=${page}&size=${size}`, { headers: this.getAuthHeaders() });
   }
 
   getUserById(id: number): Observable<IRegisterUser> {
-    return this.http.get<IRegisterUser>(`${environment.userUrl}/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.get<IRegisterUser>(`${this.userUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
 
   updateUser(id: number, user: IRegisterUser): Observable<IRegisterUser> {

@@ -4,7 +4,7 @@ export interface IRegisterUser {
     lastName:string;
     username:string;
     email:string;
-    password:string;
+    password?:string;
     city:string;
     roles:string
     loggedIn:boolean;

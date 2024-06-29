@@ -1,20 +1,23 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ITrip } from '../interfaces/trip';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
+import { ITrip } from '../interfaces/trip';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TripService {
 
+  constructor(private http: HttpClient, private authSvc: AuthService) {}
 
-  private apiUrl = environment.tripUrl;
+  addTrip(trip: ITrip): Observable<ITrip> {
+    const token = this.authSvc.getAccessToken(); // Assicurati che questo metodo recuperi il token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  constructor(private http: HttpClient) { }
-
-  addTrip(userId: number, trip: ITrip): Observable<ITrip> {
-    return this.http.post<ITrip>(`${this.apiUrl}/user/${userId}/trips`, trip);
+    return this.http.post<ITrip>(environment.tripUrl, trip, { headers });
   }
 }

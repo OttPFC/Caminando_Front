@@ -10,7 +10,7 @@ import { ILoginUser } from '../../interfaces/login-user';
 })
 export class LoginComponent {
   login: ILoginUser = {
-    email: '',
+    username: '',
     password: ''
   }
 

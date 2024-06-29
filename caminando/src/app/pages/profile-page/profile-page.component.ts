@@ -28,21 +28,16 @@ export class ProfilePageComponent implements OnInit {
       username: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      place: ['', Validators.required],
+      city: [''],
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
   ngOnInit() {
-    const lastUrl = this.navigationService.getLastUrl();
-    console.log(lastUrl);
-    if (lastUrl && lastUrl !== this.router.url) {
-      this.router.navigateByUrl(lastUrl).then(() => {
-        this.loadUser();
-      });
-    } else {
-      this.loadUser();
-    }
+    this.usrSvc.users$.subscribe(users => {
+      this.users = users;
+    });
+    this.loadUser();
   }
 
   loadUser() {

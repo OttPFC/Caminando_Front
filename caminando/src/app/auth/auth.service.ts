@@ -21,9 +21,8 @@ export class AuthService {
 
   jwtHelper: JwtHelperService = new JwtHelperService();
   userSubj = new BehaviorSubject<IRegisterUser | null>(null);
-  //loggedIn:boolean = false
-
   user$ = this.userSubj.asObservable()
+  
   isLoggedIn$ = this.user$.pipe(
     map(user => !!user),
     //tap(loggedIn => this.loggedIn = loggedIn) 
@@ -39,6 +38,9 @@ export class AuthService {
     this.restoreUser();
   }
 
+  getUser(): Observable<IRegisterUser | null> {
+    return this.user$;
+  }
   login(loginData: ILoginUser): Observable<AccessData> {
     return this.http.post<AccessData>(this.loginUrl, loginData)
       .pipe(tap(data => {

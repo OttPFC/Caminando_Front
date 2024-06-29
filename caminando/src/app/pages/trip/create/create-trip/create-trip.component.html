@@ -1,1 +1,56 @@
-<p>create-trip works!</p>
+<div class="back">
+  <div class="container">
+    <form [formGroup]="tripForm" (ngSubmit)="addTrip()">
+      <div class="row">
+        <h4>Trip</h4>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Title" formControlName="title"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Description" formControlName="description"/>
+          <div class="input-icon"><i class="fa fa-envelope"></i></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-half">
+          <h4>Start Date</h4>
+          <div class="input-group">
+            <input type="date" formControlName="startDate"/>
+          </div>
+        </div>
+        <div class="col-half">
+          <h4>End Date</h4>
+          <div class="input-group">
+            <input type="date" formControlName="endDate"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-half">
+          <h4>Privacy</h4>
+          <div class="input-group">
+            <input id="public" type="radio" formControlName="privacy" value="PUBLIC"/>
+            <label for="public">Public</label>
+            <input id="private" type="radio" formControlName="privacy" value="PRIVATE"/>
+            <label for="private">Private</label>
+          </div>
+        </div>
+        <div class="col-half">
+          <h4>Status</h4>
+          <div class="input-group">
+            <input id="completed" type="radio" formControlName="status" value="COMPLETED"/>
+            <label for="completed">Completed</label>
+            <input id="pending" type="radio" formControlName="status" value="PENDING"/>
+            <label for="pending">Pending</label>
+            <input id="active" type="radio" formControlName="status" value="ACTIVE"/>
+            <label for="active">Active</label>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">Aggiungi</button>
+      <div *ngIf="isLoading" class="loader">Caricamento...</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    </form>
+  </div>
+</div>

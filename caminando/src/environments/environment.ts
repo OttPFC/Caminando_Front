@@ -1,7 +1,8 @@
 export const environment = {
-    loginUrl:"http://localhost:8080/login",
+    loginUrl:"http://localhost:8080/api/user/login",
     registerUrl:"http://localhost:8080/api/user",
-    tripUrl:"http://localhost:8080/api/trip",
+    userUrl:"http://localhost:8080/api/user",
+    tripUrl:"http://localhost:8080/api/trips",
     stepUrl:"http://localhost:8080/api/step",
     itineraryUrl:"http://localhost:8080/api/itinerary",
     toDoUrl:"http://localhost:8080/api/todo",
