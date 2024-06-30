@@ -22,15 +22,15 @@ export class CreateTripComponent implements OnInit {
     private tripSvc: TripService,
     private userSvc: UserService,
     private authSvc: AuthService,
-    private router: Router // Iniettare il Router
+    private router: Router
   ) {
     this.tripForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      privacy: ['PUBLIC', Validators.required], // In maiuscolo
-      status: ['PENDING', Validators.required]   // In maiuscolo
+      privacy: ['PUBLIC', Validators.required], 
+      status: ['PENDING', Validators.required]   
     });
   }
 
@@ -44,20 +44,19 @@ export class CreateTripComponent implements OnInit {
 
   addTrip() {
     if (this.tripForm.valid) {
-      this.isLoading = true;
+      this.isLoading = true; // Inizia il loader
       const trip: ITrip = this.tripForm.value;
       this.tripSvc.addTrip(trip).subscribe({
         next: (createdTrip) => {
           console.log('Trip creato con successo:', createdTrip);
-          this.successMessage = 'Trip creato con successo! Redirect in 3 secondi...';
           setTimeout(() => {
-            this.isLoading = false;
+            this.isLoading = false; 
             this.router.navigate(['/trip']);
-          }, 3000);
+          }, 3000); 
         },
         error: (error) => {
+          this.isLoading = false; 
           console.error('Errore durante la creazione del trip:', error);
-          this.isLoading = false;
         }
       });
     }

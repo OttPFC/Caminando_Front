@@ -15,7 +15,8 @@ export class StepComponent {
     id : 0, 
     description: '',
     arrivalDate: new Date(),
-    departureDate: new Date()
+    departureDate: new Date(),
+    images: [],
   };
   tripId?: number; 
   

@@ -5,15 +5,16 @@ import { CreateTripComponent } from './create/create-trip/create-trip.component'
 import { EditComponent } from '../../backOffice/edit/edit.component';
 import { ShowTripComponent } from './visual/show-trip/show-trip.component';
 
-const routes: Routes = [{ path: '', component: DashboardComponent },
+const routes: Routes = [
+  { path: '', component: DashboardComponent },
   {
-    path: "createTrip", component: CreateTripComponent,
+    path: 'createTrip', component: CreateTripComponent,
   },
   {
-    path: "editTrip", component : EditComponent
+    path: 'editTrip/:id', component : EditComponent
   },
   {
-    path: "showTrip", component: ShowTripComponent
+    path: 'showTrip/:id', component: ShowTripComponent
   }
 ];
 

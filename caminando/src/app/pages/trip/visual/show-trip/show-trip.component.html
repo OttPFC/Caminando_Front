@@ -1,1 +1,10 @@
-<p>show-trip works!</p>
+<div *ngIf="trip">
+    <h2>{{ trip.title }}</h2>
+    <p>{{ trip.description }}</p>
+    <p>Start Date: {{ trip.startDate | date: 'yyyy-MM-dd' }}</p>
+    <p>End Date: {{ trip.endDate | date: 'yyyy-MM-dd' }}</p>
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  

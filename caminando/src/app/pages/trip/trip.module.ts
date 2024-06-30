@@ -8,6 +8,7 @@ import { EditTripComponent } from './edit/edit-trip/edit-trip.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowTripComponent } from './visual/show-trip/show-trip.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     DashboardRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class DashboardModule { }

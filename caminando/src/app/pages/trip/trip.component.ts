@@ -3,9 +3,12 @@ import mapboxgl from 'mapbox-gl';
 import { IRegisterUser } from '../../interfaces/register-user';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../services/user.service';
+import { TripService } from '../../services/trip.service';
+import { ITrip } from '../../interfaces/trip';
+import { Route, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-trip',
   templateUrl: './trip.component.html',
   styleUrls: ['./trip.component.scss']
 })
@@ -14,12 +17,18 @@ export class DashboardComponent implements OnInit {
   errorMessage: string | null = null;
   user: IRegisterUser | undefined;
   users: IRegisterUser[] = [];
-  constructor(private authService: AuthService, private usrSvc : UserService){}
+  trips : ITrip[] = [];
+
+  constructor(private authService: AuthService, 
+    private usrSvc : UserService, 
+    private tripService:TripService, 
+    private router:Router){}
+    
   ngOnInit() {
     console.log('DashboardComponent#ngOnInit called');
     this.initializeMap();
-    
     this.loadUser();
+    this.getAllTrips(0, 10);
   }
 
   loadUser() {
@@ -41,13 +50,27 @@ export class DashboardComponent implements OnInit {
     this.usrSvc.getUserById(id).subscribe({
       next: (user) => {
         this.user = user;
-        
       },
       error: (error) => {
         this.errorMessage = 'Errore nel recupero dell\'utente';
       }
     });
   }
+
+  getAllTrips(page: number, pageSize: number) {
+    this.tripService.getAllTrips(page, pageSize).subscribe({
+      next: (trips) => {
+        console.log('Trips received:', trips); // Aggiungi questo log
+        this.trips = trips;
+      },
+      error: (error) => {
+        this.errorMessage = 'Errore nel recupero delle tratte';
+      }
+    });
+  }
+
+  
+
   initializeMap() {
     
     (mapboxgl as typeof mapboxgl).accessToken = 'pk.eyJ1IjoiYWxlMDk3IiwiYSI6ImNsd3N5MmRnajAxM2UybHIxa3IyNThvaGIifQ.Yo5tbnRNwBRMt7u4lfauqA';
