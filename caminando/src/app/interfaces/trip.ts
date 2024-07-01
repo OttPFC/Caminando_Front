@@ -12,6 +12,6 @@ export interface ITrip {
     privacy:string
     user: IRegisterUser,
     steps: IStep[],
-    images: Image,
+    coverImage: Image,
     
 }

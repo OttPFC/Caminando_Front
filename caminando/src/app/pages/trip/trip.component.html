@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-4 mt-3 trips-container">
       <div class="d-flex flex-column align-items-center">
-        <img *ngIf="user?.image" [src]="user?.image?.imageURL" id="logo" alt="Profile Logo" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
-        <div *ngIf="!user?.image" class="placeholder mb-3" style="width: 150px; height: 150px; background-color: gray;"></div>
+        <img *ngIf="user?.image?.imageURL" [src]="user?.image?.imageURL" id="logo" alt="Profile Logo" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
+        <div *ngIf="!user?.image?.imageURL" class="placeholder mb-3 rounded-circle" style="width: 150px; height: 150px; background-color: gray;"></div>
         <div class="my-1">{{ user?.firstName }}</div>
         <div class="my-1">{{ user?.city }}</div>
         <div class="d-flex gap-2 my-1">
@@ -23,7 +23,8 @@
         <div *ngFor="let trip of trips" class="text-center">
           <div class="position-relative mb-3">
             <a [routerLink]="['showTrip', trip.id]">
-              <img src="https://picsum.photos/200/300" class="trip-image mb-3" alt="Trip Image" style="width: 100%;">
+              <img *ngIf="trip.coverImage?.imageURL" [src]="trip.coverImage?.imageURL" class="trip-image mb-3" alt="Trip Image" style="width: 100%;">
+              <div [routerLink]="['showTrip', trip.id]" *ngIf="!trip.coverImage?.imageURL" class="mb-3 trip-image-empty "></div>
             </a>
             <div class="center ms-3 mb-3 text-white fs-5">
               {{ trip.title }}
