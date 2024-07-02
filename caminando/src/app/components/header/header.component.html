@@ -1,29 +1,28 @@
-<header *ngIf="user" class="p-0 border-bottom green">
+<div *ngIf="user" class="border-bottom green sticky-top ">
   <div class="mx-4 ">
+
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+
+      <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
         <img src="assets/images/Caminando_logo.png" class="rounded-5 logo" alt="Logo">
       </a>
-
       <ul *ngIf="user" class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li [routerLink]="['/home']" [routerLinkActive]="'active'" class="nav-link px-2 link-secondary">Home</li>
         <div [routerLink]="['/trip']" [routerLinkActive]="'active'"  class="nav-link px-2 link-body-emphasis">Trip</div>
         <li><a [routerLink]="['/itinerary']" [routerLinkActive]="'active'" class="nav-link px-2 link-body-emphasis">Itinerary</a></li>
-        <li><a [routerLink]="['/profilePage']" [routerLinkActive]="'active'"  class="nav-link px-2 link-body-emphasis">Profile</a></li>
+        
       </ul>
 
-      <form *ngIf="user"  class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-      </form>
-
+      <div class="search-box me-2">
+        <button class="btn-search"><i class="bi bi-search"></i></button>
+        <input type="text" class="input-search" placeholder="Type to Search...">
+      </div>
       <div *ngIf="user" class="dropdown text-end">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="" alt="Profile" width="32" height="32" class="rounded-circle">
+          <img src="{{user.image!.imageURL}}" alt="Profile" class="image-profile">
         </a>
         <ul class="dropdown-menu text-small">
           <li><a class="dropdown-item" [routerLink]="['/profilePage']" [routerLinkActive]="'active'" >Profile</a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" (click)="logout()">Sign out</a></li>
         </ul>
@@ -32,23 +31,4 @@
       
     </div>
   </div>
-</header >
-<header *ngIf="!user" class="p-3 border-bottom green">
-  <div class="mx-4 d-flex justify-content-between">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-        <img src="assets/images/Caminando_logo.png" class="rounded-5 logo" alt="Logo">
-      </a>
-      
-      
-    </div>
-    <div *ngIf="!user" class="d-flex gap-3">
-      <button class="btn btn-outline-warning">
-        <a [routerLink]="['/login']" [routerLinkActive]="'active'">Login</a>
-      </button>
-      <button class="btn btn-outline-info">
-        <a [routerLink]="['/register']" [routerLinkActive]="'active'">Sign up</a>
-      </button>
-    </div>
-  </div>
-</header>
+</div >

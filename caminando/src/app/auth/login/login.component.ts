@@ -42,7 +42,7 @@ export class LoginComponent implements AfterViewInit {
       next: (data) => {
         iziToast.success({
           title: 'Success',
-          message: 'Login successful!',
+          message: 'Welcome traveler',
           position: 'bottomCenter'
         });
         setTimeout(() => {

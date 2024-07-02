@@ -11,4 +11,6 @@ export interface IRegisterUser {
     roles:string
     loggedIn:boolean;
     image:Image
+    follow:number;
+    followers:number;
 }
