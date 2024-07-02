@@ -1,20 +1,43 @@
- <div class="col-md-10 mx-auto col-lg-5 mt-3">
-    <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" (ngSubmit)="signIn()">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" [(ngModel)]="login.username" name="username" required placeholder="Username">
-        <label for="floatingInput">Username</label>
+<div class="back">
+  <div class="container my-2 opacity-75" id="container" #container>
+    <div class="form-container sign-up-container">
+      <form (ngSubmit)="register()">
+        <h4>Create Account</h4>
+        <div class="d-flex gap-2">
+          <input type="text" placeholder="First Name" [(ngModel)]="registerData.firstName" name="firstName" required />
+          <input type="text" placeholder="Last Name" [(ngModel)]="registerData.lastName" name="lastName" required />
+        </div>
+        <div class="d-flex gap-2">
+          <input type="email" placeholder="Email" [(ngModel)]="registerData.email" name="email" required />
+          <input type="text" placeholder="Username" [(ngModel)]="registerData.username" name="username" required />
+        </div>
+        <input type="text" placeholder="City" formControlName="city" [ngModel]="registerData.city" name="city" required />
+        <input type="password" placeholder="Password" [(ngModel)]="registerData.password" name="password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form (ngSubmit)="entra()">
+        <h1>Sign in</h1>
+        <input type="email" placeholder="Email" [(ngModel)]="login.username" name="username" required />
+        <input type="password" placeholder="Password" [(ngModel)]="login.password" name="password" required />
+        <a href="#">Forgot your password?</a>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Welcome Back!</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <button class="ghost" id="signIn" #signIn>Sign In</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <button class="ghost" id="signUp" #signUp>Sign Up</button>
+        </div>
       </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="login.password" name="password" required>
-        <label for="floatingPassword">Password</label>
-      </div>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-      <hr class="my-4">
-      <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
-    </form>
-  </div>  
+    </div>
+  </div>
+</div>

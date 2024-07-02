@@ -22,7 +22,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor, 

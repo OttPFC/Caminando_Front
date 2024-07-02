@@ -5,8 +5,10 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AuthRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     
   ]
 })

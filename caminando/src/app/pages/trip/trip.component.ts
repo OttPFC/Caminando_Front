@@ -12,7 +12,7 @@ import { Route, Router } from '@angular/router';
   templateUrl: './trip.component.html',
   styleUrls: ['./trip.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class TripComponent implements OnInit {
   map!: mapboxgl.Map;
   errorMessage: string | null = null;
   user: IRegisterUser | undefined;

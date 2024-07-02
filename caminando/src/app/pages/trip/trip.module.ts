@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './trip-routing.module';
-import { DashboardComponent } from './trip.component';
+import { TripComponent } from './trip.component';
 import { CreateTripComponent } from './create/create-trip/create-trip.component';
 import { EditTripComponent } from './edit/edit-trip/edit-trip.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    TripComponent,
     CreateTripComponent,
     EditTripComponent,
     ShowTripComponent,
