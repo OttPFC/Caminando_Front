@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'trip',
     loadChildren: () => import('./pages/trip/trip.module').then(m => {
       console.log('Loaded DashboardModule');
-      return m.DashboardModule;
+      return m.TripModule;
     }),
     title: "Caminando | Trip",
     canActivate: [AuthGuard]

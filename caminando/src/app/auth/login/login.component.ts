@@ -1,6 +1,6 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 import { ILoginUser } from '../../interfaces/login-user';
 import { IRegisterUser } from '../../interfaces/register-user';
 import iziToast from 'izitoast';
@@ -10,7 +10,7 @@ import iziToast from 'izitoast';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('signUp', { static: false }) signUpButton!: ElementRef<HTMLButtonElement>;
   @ViewChild('signIn', { static: false }) signInButton!: ElementRef<HTMLButtonElement>;
   @ViewChild('container', { static: false }) container!: ElementRef<HTMLDivElement>;
@@ -21,11 +21,22 @@ export class LoginComponent implements AfterViewInit {
   };
 
   registerData: Partial<IRegisterUser> = {};
-  
+
   constructor(
     private authSvc: AuthService,
     private router: Router,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      if (params.get('register')) {
+        this.showRegisterForm();
+      } else if (params.get('login')) {
+        this.showLoginForm();
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     this.signUpButton?.nativeElement.addEventListener('click', () => {
@@ -35,6 +46,18 @@ export class LoginComponent implements AfterViewInit {
     this.signInButton?.nativeElement.addEventListener('click', () => {
       this.container?.nativeElement.classList.remove('right-panel-active');
     });
+  }
+
+  showRegisterForm(): void {
+    setTimeout(() => {
+      this.container?.nativeElement.classList.add('right-panel-active');
+    }, 0); // Using timeout to ensure the view is fully initialized
+  }
+
+  showLoginForm(): void {
+    setTimeout(() => {
+      this.container?.nativeElement.classList.remove('right-panel-active');
+    }, 0); // Using timeout to ensure the view is fully initialized
   }
 
   entra(): void {
@@ -60,6 +83,7 @@ export class LoginComponent implements AfterViewInit {
       }
     });
   }
+
   register(): void {
     this.authSvc.register(this.registerData).subscribe({
       next: (data) => {
@@ -69,7 +93,7 @@ export class LoginComponent implements AfterViewInit {
           position: 'bottomRight'
         });
         setTimeout(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/login', { login: true }]);
         }, 2000);
         console.log('Registration successful');
       },

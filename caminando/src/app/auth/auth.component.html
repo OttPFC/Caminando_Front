@@ -1,17 +1,21 @@
 <div class="image">
-  <div class="container col-xxl-8 px-4 py-5">
+  <div class="container col-xxl-8 px-4 py-5 ">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5 ">
-      <div class="col-10 col-sm-8 col-lg-6">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button type="button" class="btn  btn-lg px-4 me-md-2 color" routerLink="/login" >Join to dream</button>
-      </div>
-      </div>
-      <div class="col-lg-6 text-center">
+      
+      <div class="col-lg-6 text-center caption">
         <p class="lead fw-bold">I travel not to go somewhere, but to go. I travel to travel. The great thing is to move, to feel the itch of our life more acutely, to get off this feather bed of civilization and feel the granite of the globe under our feet.</p>
         <cite class="">Robert Louis Stevenson</cite>
-        
       </div>
+      <button class="button" routerLink="/login">
+        <svg class="svgIcon" viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg>
+       Explore
+     </button>
     </div>
+  </div>
+</div>
+<div class="position-relative" >
+  <div class="banner " >
+  <p>Scorri la pagina su e giù per vedere come funziona l'effetto parallasse.</p>
   </div>
 </div>
 <div class="image-2">
@@ -48,8 +52,37 @@
     </div>
   </div>
 </div>
-
-
-  
-  
-    
+<div class="position-relative" >
+  <div class="banner" >
+  <p>Scorri la pagina su e giù per vedere come funziona l'effetto parallasse.</p>
+  </div>
+</div>
+<div class="image-3">
+  <div class="container col-xxl-8 px-4 py-5 caption-2">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5 ">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <div class="d-flex gap-2 d-md-flex justify-content-md-end align-items-center">
+          
+          <button class="button-2" [routerLink]="['/login', { register: true }]">
+            Register Now
+            <svg fill="currentColor" viewBox="0 0 24 24" class="icon-2">
+              <path
+                clip-rule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          
+          
+         
+      </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <p class="lead fw-bold">I travel not to go somewhere, but to go. I travel to travel. The great thing is to move, to feel the itch of our life more acutely, to get off this feather bed of civilization and feel the granite of the globe under our feet.</p>
+        <cite class="">Robert Louis Stevenson</cite>
+        
+      </div>
+    </div>
+  </div>
+</div>

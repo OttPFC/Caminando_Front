@@ -1,6 +1,6 @@
 
-<div class="color">
-  <div class="ms-3 p-0">
+<div class="color m-0 p-0">
+  <div class="ms-1 p-0">
     <div class="row m-0 p-0">
       <div class="col-4 pt-3 trips-container ">
         <div class="d-flex flex-column align-items-center">
@@ -8,15 +8,12 @@
           <div *ngIf="!user?.image?.imageURL" class="placeholder mb-3 rounded-circle logo-2"></div>
           <div class="my-1 fw-semibold">{{ user?.firstName }} {{user?.lastName}}
             <div class="fst-italic text text-center">{{ user?.city }}</div>
-            
           </div>
-          
           <div class="d-flex gap-2 my-1">
             <div class="follow">{{ user?.followers | number:'1.0-0' }} Follower</div>
             <div class="follow">{{ user?.follow | number:'1.0-0' }} Following</div>
           </div>
         </div>
-        
         <div class="text-center border border-dark mb-3">
           Trips
         </div>

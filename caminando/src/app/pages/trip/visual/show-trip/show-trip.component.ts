@@ -22,11 +22,19 @@ export class ShowTripComponent implements OnInit {
   user: IRegisterUser | undefined;
   users: IRegisterUser[] = [];
 
+  slides: Array<{ image: string, alt: string }> = [];
+
+  splideOptions = {
+    type: 'loop',
+    perPage: 3,
+    gap: '1rem',
+  };
+
   constructor(
     private tripService: TripService,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private usrSvc: UserService,  // Aggiungi questa variabile per la gestione degli utenti
+    private usrSvc: UserService,  
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +49,6 @@ export class ShowTripComponent implements OnInit {
       next: (user) => {
         this.user = user || undefined;
         if (this.user) {
-          
           this.getUser(this.user.id);
         }
       },
@@ -61,6 +68,7 @@ export class ShowTripComponent implements OnInit {
       }
     });
   }
+
   getAllTrips(page: number, pageSize: number) {
     this.tripService.getAllTrips(page, pageSize).subscribe({
       next: (trips) => {
@@ -85,10 +93,7 @@ export class ShowTripComponent implements OnInit {
   }
 
   initializeMap() {
-    
     (mapboxgl as typeof mapboxgl).accessToken = 'pk.eyJ1IjoiYWxlMDk3IiwiYSI6ImNsd3N5MmRnajAxM2UybHIxa3IyNThvaGIifQ.Yo5tbnRNwBRMt7u4lfauqA';
-    
-    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -100,7 +105,6 @@ export class ShowTripComponent implements OnInit {
             zoom: 2
           });
 
-          
           new mapboxgl.Marker()
             .setLngLat(userLocation)
             .addTo(this.map);
@@ -116,7 +120,6 @@ export class ShowTripComponent implements OnInit {
     }
   }
 
-  
   initializeMapWithDefaultLocation() {
     this.map = new mapboxgl.Map({
       container: 'map',
