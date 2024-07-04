@@ -1,40 +1,85 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IStep } from '../../interfaces/step';
 import { StepService } from '../../services/step.service';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { ITrip } from '../../interfaces/trip';
+import { TripService } from '../../services/trip.service';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-step',
   templateUrl: './step.component.html',
-  styleUrl: './step.component.scss'
+  styleUrls: ['./step.component.scss']
 })
-export class StepComponent {
+export class StepComponent implements OnInit {
 
-  step: IStep = { 
-    id : 0, 
-    description: '',
-    arrivalDate: new Date(),
-    departureDate: new Date(),
-    images: [],
-  };
-  tripId?: number; 
-  
-  constructor(private stepService: StepService, private route: ActivatedRoute) {
-    this.route.params.subscribe(params => {
-      this.tripId = +params['tripId']; 
+  @Input() tripId!: number;
+  trip: ITrip | undefined;
+  errorMessage: string | null = null;
+  stepForm: FormGroup;
+
+  constructor(
+    private stepService: StepService, 
+    public activeModal: NgbActiveModal,
+    private fb: FormBuilder,
+    private router: Router,
+    private tripService: TripService
+  ) {
+    this.stepForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      arrivalDate: ['', Validators.required],
+      departureDate: ['', Validators.required],
+      images: ['']
     });
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid && this.tripId) {
-      this.stepService.addStep(this.tripId, this.step).subscribe({
+  ngOnInit() {
+    this.getTrip(this.tripId);
+  }
+
+  closeModal() {
+    this.activeModal.close();
+  }
+
+  saveStep() {
+    if (this.stepForm.valid) {
+      const formValues = this.stepForm.value;
+      const newStep: IStep = {
+        ...formValues,
+        arrivalDate: this.convertDate(formValues.arrivalDate),
+        departureDate: this.convertDate(formValues.departureDate)
+      };
+
+      this.stepService.addStep(this.tripId, newStep).subscribe({
         next: (step) => {
-          console.log('Step added successfully', step);
-          form.resetForm();  
+          this.activeModal.close(step); 
+          console.log(step + "creato");
         },
-        error: (error) => console.error('Error adding step', error)
+        error: (error) => {
+          this.errorMessage = 'Errore nel salvataggio dello step';
+        }
       });
     }
+  }
+
+  convertDate(dateStruct: NgbDateStruct | null): Date | null {
+    if (dateStruct) {
+      return new Date(dateStruct.year, dateStruct.month - 1, dateStruct.day);
+    }
+    return null;
+  }
+
+  getTrip(id: number): void {
+    this.tripService.getTripById(id).subscribe({
+      next: (trip) => {
+        this.trip = trip;
+      },
+      error: (error) => {
+        this.errorMessage = 'Errore nel recupero del viaggio';
+      }
+    });
   }
 }

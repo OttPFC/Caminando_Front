@@ -15,6 +15,6 @@ export class StepService {
 
   // Aggiungi un nuovo step
   addStep(tripId: number, step: IStep): Observable<IStep> {
-    return this.http.post<IStep>(`${this.apiUrl}/trip/${tripId}`, step);
+    return this.http.post<IStep>(`${this.apiUrl}/${tripId}/create`, step);
   }
 }

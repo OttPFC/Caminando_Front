@@ -1,0 +1,49 @@
+<div class="modal-header d-flex justify-content-between">
+    <h4 class="modal-title">Trip Settings</h4>
+    <button type="button" class="close btn btn-outline-danger rounded-circle" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="trip">
+    <form>
+      <div class="form-group d-flex">
+        <div class="form-group" *ngIf="trip.coverImage">
+          <label for="image">Cover Image</label>
+          <img [src]="trip.coverImage.imageURL" alt="Cover Image" class="img-fluid ima">
+        </div>
+        <div class="align-self-center">
+          <input type="file" id="image" class="form-control-file" (change)="onFileSelected($event)" name="image">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="tripTitle">Title</label>
+        <input type="text" id="tripTitle" class="form-control" [(ngModel)]="trip.title" name="tripTitle">
+      </div>
+      <div class="form-group">
+        <label for="tripDescription">Description</label>
+        <input type="text" id="tripDescription" class="form-control" [(ngModel)]="trip.description" name="tripDescription">
+      </div>
+      <div class="form-group">
+        <label for="start">Start Date</label>
+        <input type="text" id="start" class="form-control" [(ngModel)]="trip.startDate" name="start">
+      </div>
+      <div class="form-group">
+        <label for="end">End Date</label>
+        <input type="text" id="end" class="form-control" [(ngModel)]="trip.endDate" name="end">
+      </div>
+      <div class="form-group">
+        <label for="privacy">Privacy</label>
+        <input type="text" id="privacy" class="form-control" [(ngModel)]="trip.privacy" name="privacy">
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <input type="text" id="status" class="form-control" [(ngModel)]="trip.status" name="status">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    
+    <button type="button" class="btn btn-primary" (click)="saveSettings()">Save changes</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDeleteTrip()">Delete Trip</button>
+  </div>
+  

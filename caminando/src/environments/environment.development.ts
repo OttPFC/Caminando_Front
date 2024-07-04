@@ -3,7 +3,7 @@ export const environment = {
     registerUrl:"http://localhost:8080/api/user",
     userUrl:"http://localhost:8080/api/user",
     tripUrl:"http://localhost:8080/api/trips",
-    stepUrl:"http://localhost:8080/api/step",
+    stepUrl:"http://localhost:8080/api/steps",
     itineraryUrl:"http://localhost:8080/api/itinerary",
     toDoUrl:"http://localhost:8080/api/todo",
     restaurantUrl:"http://localhost:8080/api/restaurant",

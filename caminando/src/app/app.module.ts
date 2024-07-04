@@ -10,6 +10,9 @@ import { StepComponent } from './components/step/step.component';
 import { PositionComponent } from './components/position/position.component';
 
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TripSettingsModalComponent } from './components/trip-settings-modal/trip-settings-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +20,16 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     HeaderComponent,
     FooterComponent,
     StepComponent,
-    PositionComponent
+    PositionComponent,
+    TripSettingsModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor, 

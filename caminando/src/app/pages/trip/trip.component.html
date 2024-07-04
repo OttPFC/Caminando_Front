@@ -3,7 +3,7 @@
   <div class="ms-1 p-0">
     <div class="row m-0 p-0">
       <div class="col-4 pt-3 trips-container ">
-        <div class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-column align-items-center ">
           <img *ngIf="user?.image?.imageURL" [src]="user?.image?.imageURL" id="logo" alt="Profile Logo" class="rounded-circle mb-3" >
           <div *ngIf="!user?.image?.imageURL" class="placeholder mb-3 rounded-circle logo-2"></div>
           <div class="my-1 fw-semibold">{{ user?.firstName }} {{user?.lastName}}
@@ -28,10 +28,10 @@
                 <img *ngIf="trip.coverImage?.imageURL" [src]="trip.coverImage.imageURL" class="trip-image " alt="Trip Image" >
                 <div [routerLink]="['showTrip', trip.id]" *ngIf="!trip.coverImage?.imageURL" class="mb-3 trip-image-empty "></div>
               </a>
-              <div class="center ms-3 mb-3 text-white fs-5">
+              <div class="center ms-3 mb-1 text-white fs-5">
                 {{ trip.title }}
               </div>
-              <div class="position-absolute bottom-0 start-0 ms-3 mb-4 text-white">
+              <div class="position-absolute bottom-0 start-0 ms-3 mb-2 text-white">
                 <div class="d-flex gap-3">
                   <div class="d-flex flex-column">
                     <div class="fw-semibold">Start Date</div>

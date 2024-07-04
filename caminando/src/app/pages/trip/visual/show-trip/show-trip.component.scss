@@ -1,3 +1,12 @@
+*{
+    box-shadow: inset;
+  }
+
+  .color{
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
 .image-profile {
     width: 30px;
     height: 30px;
@@ -9,7 +18,6 @@
     font-size: 13px;
 }
 
-
 .set {
     font-size: 12px;
 }
@@ -19,21 +27,41 @@
     height: 90vh;
 }
 
+.image-back-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    
+}
+
 .image-back {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    height: 250px;
+    height: 100%;
+    filter: brightness(60%);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.overlay-content {
+    position: relative;
+    z-index: 1;
+    color: white; 
+    padding: 20px;
+    text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    color: white;
+    height: 100%;
 }
 
 .trips-container {
     max-height: 90vh;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
 
@@ -100,4 +128,13 @@
 .button:active {
     transform: translate(3px, 3px);
     box-shadow: 0px 0px var(--main-color);
+}
+
+.placeholder-icon {
+    width: 64px;
+    height: 64px;
+    background-color: grey; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

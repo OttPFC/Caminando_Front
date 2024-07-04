@@ -13,4 +13,5 @@ export interface IRegisterUser {
     image:Image
     follow:number;
     followers:number;
+    bio:string;
 }

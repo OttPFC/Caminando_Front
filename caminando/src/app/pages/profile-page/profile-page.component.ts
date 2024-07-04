@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
 import { NavigationService } from '../../services/general/navigation.service';
 import { Router } from '@angular/router';
+import iziToast from 'izitoast';
 
 @Component({
   selector: 'app-profile-page',
@@ -16,6 +17,7 @@ export class ProfilePageComponent implements OnInit {
   user: IRegisterUser | undefined;
   userForm: FormGroup;
   errorMessage: string | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +31,7 @@ export class ProfilePageComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       city: [''],
+      bio:[''],
       email: ['', [Validators.required, Validators.email]]
     });
   }
@@ -73,12 +76,51 @@ export class ProfilePageComponent implements OnInit {
       this.usrSvc.updateUser(this.user.id, updatedUser).subscribe({
         next: () => {
           console.log('Utente aggiornato con successo');
+          iziToast.success({
+            title: 'Success',
+            message: 'Profile successfully updated.',
+            position: 'bottomCenter'
+          });
+          setTimeout(() => {
+            window.location.reload();;
+          }, 2000);
         },
         error: (error) => {
           console.error('Errore durante l\'aggiornamento dell\'utente', error);
           this.errorMessage = 'Errore durante l\'aggiornamento dell\'utente';
         }
       });
+    }
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
+  addAvatar() {
+    if (this.selectedFile && this.user) {
+      this.usrSvc.uploadProfileImage(this.user.id, this.selectedFile).subscribe({
+        next: (user) => {
+          console.log('Immagine del profilo caricata con successo');
+          this.user = user;  
+          window.location.reload();
+          iziToast.success({
+            title: 'Success',
+            message: 'Upload completed',
+            position: 'bottomCenter'
+          });
+        },
+        error: (error) => {
+          console.error('Errore durante il caricamento dell\'immagine del profilo', error);
+          this.errorMessage = 'Errore durante il caricamento dell\'immagine del profilo';
+        }
+      });
+    } else {
+      console.error('Nessun file selezionato o utente non disponibile');
+      this.errorMessage = 'Nessun file selezionato o utente non disponibile';
     }
   }
 }

@@ -25,7 +25,8 @@ import { NgxSplideModule } from 'ngx-splide';
     TripRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxSplideModule
+    NgxSplideModule,
+
     
   ]
 })

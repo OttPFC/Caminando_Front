@@ -1,1 +1,41 @@
-<p>step works!</p>
+<div class="modal-header">
+    <h4 class="modal-title">Add Step</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="stepForm" (ngSubmit)="saveStep()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="arrivalDate">Start Date</label>
+        <div class="input-group">
+          <input id="arrivalDate" formControlName="arrivalDate" class="form-control" ngbDatepicker #startDp="ngbDatepicker" />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="startDp.toggle()" type="button">📅</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="departureDate">End Date</label>
+        <div class="input-group">
+          <input id="departureDate" formControlName="departureDate" class="form-control" ngbDatepicker #endDp="ngbDatepicker" />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="endDp.toggle()" type="button">📅</button>
+          </div>
+        </div>
+      </div>      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="submit" class="btn btn-primary" >Save</button>
+  </div>
+  

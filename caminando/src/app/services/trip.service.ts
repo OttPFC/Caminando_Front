@@ -23,8 +23,9 @@ export class TripService {
     if (!token) return new HttpHeaders();
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
+
   addTrip(trip: ITrip): Observable<ITrip> {
-    return this.http.post<ITrip>(this.tripUrl,trip, {headers : this.getAuthHeaders()});
+    return this.http.post<ITrip>(this.tripUrl, trip, { headers: this.getAuthHeaders() });
   }
 
   getAllTrips(page: number, size: number): Observable<ITrip[]> {
@@ -43,11 +44,18 @@ export class TripService {
   deleteTrip(id: number): Observable<void> {
     return this.http.delete<void>(`${this.tripUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
+
+  uploadProfileImage(id: number, file: File): Observable<ITrip> {
+    const headers = this.getAuthHeaders();
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.patch<ITrip>(`${this.tripUrl}/${id}/image`, formData, { headers });
+  }
+
   fetchAllTrips(page: number, size: number): void {
     this.getAllTrips(page, size).subscribe({
       next: (trips) => this.trip.next(trips),
       error: (error) => console.error('Errore nel recupero delle tratte', error)
     });
   }
-
 }

@@ -6,6 +6,9 @@ import { AuthService } from '../../../../auth/auth.service';
 import { UserService } from '../../../../services/user.service';
 import { IRegisterUser } from '../../../../interfaces/register-user';
 import mapboxgl from 'mapbox-gl';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TripSettingsModalComponent } from '../../../../components/trip-settings-modal/trip-settings-modal.component';
+import { StepComponent } from '../../../../components/step/step.component';
 
 @Component({
   selector: 'app-show-trip',
@@ -15,26 +18,16 @@ import mapboxgl from 'mapbox-gl';
 export class ShowTripComponent implements OnInit {
 
   map!: mapboxgl.Map;
-
-  trip: ITrip | undefined;
   errorMessage: string | null = null;
-  trips : ITrip[] = [];
+  trip: ITrip | undefined;
   user: IRegisterUser | undefined;
-  users: IRegisterUser[] = [];
-
-  slides: Array<{ image: string, alt: string }> = [];
-
-  splideOptions = {
-    type: 'loop',
-    perPage: 3,
-    gap: '1rem',
-  };
 
   constructor(
     private tripService: TripService,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private usrSvc: UserService,  
+    private usrSvc: UserService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +36,27 @@ export class ShowTripComponent implements OnInit {
     this.getTrip(id);
     this.loadUser();
   }
+
+  openTripSettings() {
+    const modalRef = this.modalService.open(TripSettingsModalComponent);
+    if (this.trip) {
+      modalRef.componentInstance.tripId = this.trip.id; // Passa l'ID del trip al modale
+    }
+
+  }
+  openAddItemModal() {
+    const modalRef = this.modalService.open(StepComponent);
+    modalRef.componentInstance.tripId = this.trip?.id; // Passa l'ID del trip al modal
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log('Step added:', result);
+        // Aggiorna la vista o esegui altre azioni necessarie
+      }
+    }, (reason) => {
+      console.log('Modal dismissed:', reason);
+    });
+  }
+  
 
   loadUser() {
     this.authService.user$.subscribe({
@@ -65,18 +79,6 @@ export class ShowTripComponent implements OnInit {
       },
       error: (error) => {
         this.errorMessage = 'Errore nel recupero dell\'utente';
-      }
-    });
-  }
-
-  getAllTrips(page: number, pageSize: number) {
-    this.tripService.getAllTrips(page, pageSize).subscribe({
-      next: (trips) => {
-        console.log('Trips received:', trips); // Aggiungi questo log
-        this.trips = trips;
-      },
-      error: (error) => {
-        this.errorMessage = 'Errore nel recupero delle tratte';
       }
     });
   }
