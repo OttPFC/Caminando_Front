@@ -42,11 +42,13 @@
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
               "node_modules/izitoast/dist/css/iziToast.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "node_modules/@splidejs/splide/dist/css/splide.min.css"
+              "node_modules/@splidejs/splide/dist/css/splide.min.css",
+              "node_modules/@splidejs/splide/dist/css/themes/splide-default.min.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/izitoast/dist/js/iziToast.min.js"
+              "node_modules/izitoast/dist/js/iziToast.min.js",
+              "node_modules/@splidejs/splide/dist/js/splide.min.js"
             ]
           },
           "configurations": {

@@ -88,18 +88,32 @@
           </button>
           
         </div>
-        <div class="d-flex flex-column my-3 border border-black p-2 me-4">
-          <h4>Titolo</h4>
-          <div class="d-flex">
-            <div>Nome Località</div>
-            <div>Timestamp</div>
-          </div>
+        <div *ngFor="let s of trip.steps" class="d-flex flex-column my-3 border border-black p-2 me-4" 
+        (click)="onStepClick(s)">
+  <h4>{{s.description}}</h4>
+  <div class="d-flex">
+    <div>{{s.arrivalDate | date : 'MM dd'}} {{s.departureDate | date : 'MM dd'}}</div>
+  </div>
+  <div class="carousel-container">
+    <ngb-carousel *ngIf="s.images && s.images.length">
+      <ng-template ngbSlide *ngFor="let image of s.images; let i = index">
+        <div class="picsum-img-wrapper">
+          <img [src]="image.imageURL" [alt]="'Image ' + (i + 1)" class="carousel-image" />
         </div>
+        <div class="carousel-caption">
+          <h3>Slide {{i + 1}} label</h3>
+          <p>Descrizione per l'immagine {{i + 1}}</p>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</div>
+        
 
       </div>
     </div>
     <div class="col-8 p-0 m-0">
-      <div id="map"></div>
+      <div id="map" class="p-0 m-0"></div>
     </div>
   </div>
 

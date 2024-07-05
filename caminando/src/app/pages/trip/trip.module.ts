@@ -10,6 +10,7 @@ import { ShowTripComponent } from './visual/show-trip/show-trip.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSplideModule } from 'ngx-splide';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -26,6 +27,7 @@ import { NgxSplideModule } from 'ngx-splide';
     HttpClientModule,
     ReactiveFormsModule,
     NgxSplideModule,
+    NgbModule
 
     
   ]

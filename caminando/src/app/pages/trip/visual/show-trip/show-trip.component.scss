@@ -60,7 +60,7 @@
 }
 
 .trips-container {
-    max-height: 90vh;
+    max-height: 89vh;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -138,3 +138,24 @@
     align-items: center;
     justify-content: center;
 }
+/* show-trip.component.scss */
+.carousel-container {
+    width: 100%; 
+    max-width: 800px; 
+    margin: auto; 
+    overflow: hidden; 
+  }
+  
+  .picsum-img-wrapper {
+    height: 300px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .carousel-container img.carousel-image {
+    max-height: 100%;
+    max-width: 100%; 
+    object-fit: cover;
+  }
+  

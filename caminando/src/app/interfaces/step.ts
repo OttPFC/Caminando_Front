@@ -1,4 +1,5 @@
 import { Image } from "./image";
+import { IPosition } from "./position";
 
 export interface IStep {
     id : number;
@@ -6,4 +7,5 @@ export interface IStep {
     arrivalDate: Date;
     departureDate: Date;
     images:Image[];
+    position: IPosition;
 }
