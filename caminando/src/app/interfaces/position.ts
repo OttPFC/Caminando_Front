@@ -1,7 +1,9 @@
+import { IStep } from "./step";
+
 export interface IPosition {
-    id: number;
     latitude: number;
     longitude: number;
-    timestamp: Date;
-    nomeLocalita : string;
+    timestamp: string;
+    nomeLocalita: string;
+    step?:IStep
 }

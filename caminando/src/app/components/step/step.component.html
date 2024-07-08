@@ -1,4 +1,5 @@
-<div class="modal-header">
+<div>
+  <div class="modal-header">
     <h4 class="modal-title">Add Step</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
@@ -7,15 +8,11 @@
   <div class="modal-body">
     <form [formGroup]="stepForm" (ngSubmit)="saveStep()">
       <div class="form-group">
-        <label for="title">Title</label>
-        <input id="title" formControlName="title" class="form-control" />
-      </div>
-      <div class="form-group">
         <label for="description">Description</label>
         <textarea id="description" formControlName="description" class="form-control"></textarea>
       </div>
       <div class="form-group">
-        <label for="arrivalDate">Start Date</label>
+        <label for="arrivalDate">Arrival Date</label>
         <div class="input-group">
           <input id="arrivalDate" formControlName="arrivalDate" class="form-control" ngbDatepicker #startDp="ngbDatepicker" />
           <div class="input-group-append">
@@ -24,18 +21,41 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="departureDate">End Date</label>
+        <label for="departureDate">Departure Date</label>
         <div class="input-group">
           <input id="departureDate" formControlName="departureDate" class="form-control" ngbDatepicker #endDp="ngbDatepicker" />
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" (click)="endDp.toggle()" type="button">📅</button>
           </div>
         </div>
-      </div>      
+      </div>
     </form>
+    
+    <form [formGroup]="positionForm">
+      <div class="form-group">
+        <label for="latitude">Latitude</label>
+        <input id="latitude" formControlName="latitude" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="longitude">Longitude</label>
+        <input id="longitude" formControlName="longitude" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="nomeLocalita">Nome Località</label>
+        <input id="nomeLocalita" formControlName="nomeLocalita" class="form-control" />
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-secondary" (click)="openMapModal()">Select Coordinates</button>
+      </div>
+    </form>
+    
+    <div class="form-group">
+      <label for="file">Upload Images</label>
+      <input type="file" id="file" (change)="onFilesSelected($event)" multiple class="form-control-file" />
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      <button type="submit" class="btn btn-primary" [disabled]="stepForm.invalid || positionForm.invalid" (click)="saveStep()">Save</button>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-    <button type="submit" class="btn btn-primary" >Save</button>
-  </div>
-  
+</div>

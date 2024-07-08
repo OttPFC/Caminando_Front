@@ -50,8 +50,12 @@ export class ShowTripComponent implements OnInit {
   }
 
   openAddItemModal() {
-    const modalRef = this.modalService.open(StepComponent);
-    modalRef.componentInstance.tripId = this.trip?.id; 
+    const modalRef = this.modalService.open(StepComponent, {
+      backdrop: 'static', // Modale non si chiude cliccando fuori
+      keyboard: false,    // Modale non si chiude premendo Esc
+      windowClass: 'modal-over-section' // Classe personalizzata per il posizionamento
+    });
+    modalRef.componentInstance.tripId = this.trip?.id;
     modalRef.result.then((result) => {
       if (result) {
         console.log('Step added:', result);
@@ -120,6 +124,7 @@ export class ShowTripComponent implements OnInit {
           this.marker = new mapboxgl.Marker()
             .setLngLat(userLocation)
             .addTo(this.map);
+            
         },
         (error) => {
           console.error('Error getting user location', error);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import { IRegisterUser } from '../../interfaces/register-user';
 import { AuthService } from '../../auth/auth.service';
@@ -13,6 +13,8 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./trip.component.scss']
 })
 export class TripComponent implements OnInit {
+
+  @Output() tripSelected = new EventEmitter<number>();
   map!: mapboxgl.Map;
   errorMessage: string | null = null;
   user: IRegisterUser | undefined;

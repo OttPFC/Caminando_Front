@@ -15,6 +15,7 @@ export class TripSettingsModalComponent implements OnInit {
   @Input() tripId!: number;
   trip: ITrip | undefined;
   errorMessage: string | null = null;
+  selectedFile: File | null = null;
 
   constructor(public activeModal: NgbActiveModal, 
               private tripService: TripService,
@@ -22,28 +23,6 @@ export class TripSettingsModalComponent implements OnInit {
 
   ngOnInit() {
     this.getTrip(this.tripId);
-  }
-
-  saveSettings() {
-    if (this.trip) {
-      this.tripService.updateTrip(this.trip.id, this.trip).subscribe({
-        next: (updatedTrip) => {
-          this.trip = updatedTrip;
-          this.activeModal.close('Save click');
-          iziToast.success({
-            title: 'Success',
-            message: 'Trip successfully eliminated.',
-            position: 'bottomCenter'
-          });
-          setTimeout(() => {
-            window.location.reload();;
-          }, 2000);
-        },
-        error: (error) => {
-          this.errorMessage = 'Errore nel salvataggio del viaggio';
-        }
-      });
-    }
   }
 
   confirmDeleteTrip() {
@@ -75,10 +54,11 @@ export class TripSettingsModalComponent implements OnInit {
           });
           setTimeout(() => {
             this.router.navigate(['/trip']);
-          }, 2000); // Ritardo di 3 secondi
+          }, 2000);
         },
         error: (error) => {
           this.errorMessage = 'Errore nella cancellazione del viaggio';
+          console.error('Errore nella cancellazione del viaggio', error);
         }
       });
     }
@@ -95,20 +75,62 @@ export class TripSettingsModalComponent implements OnInit {
       },
       error: (error) => {
         this.errorMessage = 'Errore nel recupero del viaggio';
+        console.error('Errore nel recupero del viaggio', error);
       }
     });
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (this.trip) {
-          this.trip.coverImage.imageURL = reader.result as string;
+  saveSettings() {
+    if (this.trip) {
+      if (this.selectedFile) {
+        this.uploadImageAndUpdateTrip();
+        
+      } else {
+        this.updateTrip();
+      }
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  uploadImageAndUpdateTrip() {
+    if (this.trip && this.selectedFile) {
+      this.tripService.uploadProfileImage(this.trip.id, this.selectedFile).subscribe({
+        next: (updatedTrip) => {
+          this.trip = updatedTrip;
+          this.updateTrip();
+        },
+        error: (error) => {
+          this.errorMessage = 'Errore durante il caricamento dell\'immagine';
+          console.error('Errore durante il caricamento dell\'immagine', error);
         }
-      };
-      reader.readAsDataURL(file);
+      });
+    }
+  }
+
+  updateTrip() {
+    if (this.trip) {
+      this.tripService.updateTrip(this.trip.id, this.trip).subscribe({
+        next: (updatedTrip) => {
+          iziToast.success({
+            title: 'Success',
+            message: 'Trip successfully updated.',
+            position: 'bottomCenter'
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        },
+        error: (error) => {
+          this.errorMessage = 'Errore durante l\'aggiornamento del viaggio';
+          console.error('Errore durante l\'aggiornamento del viaggio', error);
+        }
+      });
     }
   }
 }

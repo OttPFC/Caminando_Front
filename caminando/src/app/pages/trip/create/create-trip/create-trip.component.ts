@@ -75,7 +75,7 @@ export class CreateTripComponent implements OnInit {
             this.isLoading = false;
             iziToast.error({
               title: 'Error',
-              message: 'Your Trip was not saved!',
+              message: 'Your image was not saved!',
               position: 'bottomCenter'
             });
             this.router.navigate(['/trip']);

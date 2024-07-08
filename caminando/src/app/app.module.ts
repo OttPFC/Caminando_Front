@@ -14,14 +14,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TripSettingsModalComponent } from './components/trip-settings-modal/trip-settings-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    StepComponent,
-    PositionComponent,
-    TripSettingsModalComponent
+    
+    TripSettingsModalComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'createTrip', component: CreateTripComponent,
   },
   {
-    path: 'editTrip/:id', component : EditComponent
+    path: 'editTrip', component : EditComponent
   },
   {
     path: 'showTrip/:id', component: ShowTripComponent

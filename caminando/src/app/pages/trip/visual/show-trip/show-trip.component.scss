@@ -13,7 +13,12 @@
     border-radius: 50%;
     object-fit: cover;
 }
-
+.long{
+    width: 95%;
+}
+.date-text{
+    font-size: 12px;
+}
 .text {
     font-size: 13px;
 }
@@ -60,7 +65,7 @@
 }
 
 .trips-container {
-    max-height: 89vh;
+    max-height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -158,4 +163,6 @@
     max-width: 100%; 
     object-fit: cover;
   }
-  
+  .modal-over-section .modal-dialog {
+    margin-top: 10%; /* Adatta questo valore per posizionare il modale */
+  }

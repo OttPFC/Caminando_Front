@@ -11,6 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSplideModule } from 'ngx-splide';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PositionComponent } from '../../components/position/position.component';
+import { TripBoardComponent } from './trip-board/trip-board.component';
+import { StepComponent } from '../../components/step/step.component';
 
 
 
@@ -20,6 +23,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreateTripComponent,
     EditTripComponent,
     ShowTripComponent,
+    PositionComponent,
+    TripBoardComponent,
+    StepComponent
   ],
   imports: [
     CommonModule,
