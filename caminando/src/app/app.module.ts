@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -6,13 +6,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { StepComponent } from './components/step/step.component';
-import { PositionComponent } from './components/position/position.component';
 
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TripSettingsModalComponent } from './components/trip-settings-modal/trip-settings-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TripSettingsModalComponent } from './components/trip-settings-modal/trip-settings-modal.component';
+import { StepEditModalComponent } from './components/step-edit-modal/step-edit-modal.component';
 
 
 @NgModule({
@@ -20,9 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    
     TripSettingsModalComponent,
-
+         StepEditModalComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [{ provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor, 
     multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

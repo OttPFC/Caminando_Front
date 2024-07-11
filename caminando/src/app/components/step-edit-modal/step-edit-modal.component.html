@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title">Edit Step</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="stepForm">
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="arrivalDate">Arrival Date</label>
+        <input id="arrivalDate" type="date" formControlName="arrivalDate" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="departureDate">Departure Date</label>
+        <input id="departureDate" type="date" formControlName="departureDate" class="form-control" />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="deleteStep()">Delete</button>
+    <button type="button" class="btn btn-primary" (click)="saveStep()">Save</button>
+  </div>
+  

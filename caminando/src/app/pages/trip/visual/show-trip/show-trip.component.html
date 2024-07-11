@@ -1,7 +1,6 @@
-<!-- show-trip component -->
 <div class="color m-0 p-0">
   <div class="row m-0 p-0">
-    <div *ngIf="trip" class="col-5 mt-2 trips-container p-0">
+    <div *ngIf="trip && !showForm" class="col-5 mt-2 trips-container p-0" >
       <div class="d-flex justify-content-between ms-4 my-2">
         <div class="d-flex gap-2 align-items-center">
           <div><img src="{{user?.image?.imageURL}}" class="image-profile" alt=""></div>
@@ -10,102 +9,77 @@
         <div class="me-3">
           <button class="btn btn-outline-info btn-small set p-1" (click)="openTripSettings()">Trip settings</button>
         </div>
-        
       </div>
       <div class="image-back-container">
-        <div class="image-back"
-          [ngStyle]="{'background-image': 'url(' + (trip.coverImage?.imageURL || '/assets/images/image_placeholder.png') + ')'}">
-        </div>
+        <div class="image-back" [ngStyle]="{'background-image': 'url(' + (trip.coverImage?.imageURL || '/assets/images/image_placeholder.png') + ')'}"></div>
         <div class="overlay-content">
-          <div>
-            {{ trip.startDate | date: 'MMMM-yyyy' }} <i class="bi bi-dot"></i> {{ trip.endDate | date: 'MMMM-yyyy' }}
-          </div>
-          <div>
-            <h5>{{ trip.title }}</h5>
-          </div>
+          <div>{{ trip.startDate | date: 'MMMM-yyyy' }} <i class="bi bi-dot"></i> {{ trip.endDate | date: 'MMMM-yyyy' }}</div>
+          <div><h5>{{ trip.title }}</h5></div>
           <div>"{{ trip.description }}"</div>
         </div>
       </div>
-
       <div class="container p-0 ms-3 mt-4">
         <div class="d-flex gap-3">
-          <div class="">
-            <i class="bi bi-calendar2-week fs-3"></i>
-
-          </div>
+          <div><i class="bi bi-calendar2-week fs-3"></i></div>
           <div class="d-flex flex-column align-items-center">
             <span class="fw-bold text p-0">Trip started</span>
             <span class="p-0 text">{{ trip.startDate | date: 'MMMM dd, yyyy' }}</span>
           </div>
         </div>
-
-        <div class="d-flex flex-column my-3 border align-items-center  border-black long">
-          <span class="fw-bold fs-6 ">Start</span>
+        <div class="d-flex flex-column my-3 border align-items-center border-black long">
+          <span class="fw-bold fs-6">Start</span>
           <div class="d-flex gap-3 align-items-center">
             <i class="bi bi-house fs-3"></i>
             <div>
               <i class="bi bi-arrow-left-right"></i>
-            <img class="ms-1" src="assets/images/world.svg" alt="">
+              <img class="ms-1" src="assets/images/world.svg" alt="">
             </div>
           </div>
-
         </div>
-
-        <div class="d-flex justify-content-center" >
-
-          <button type="button" class="button" (click)="openAddItemModal()">
+        <div class="d-flex justify-content-center">
+          <button type="button" class="button" (click)="toggleForm()">
             <span class="button__text">Add Item</span>
-            <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24"
-                stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="20"
-                fill="none" class="svg">
-                <line y2="19" y1="5" x2="12" x1="12"></line>
-                <line y2="12" y1="12" x2="19" x1="5"></line>
-              </svg></span>
+            <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="20" fill="none" class="svg">
+              <line y2="19" y1="5" x2="12" x1="12"></line>
+              <line y2="12" y1="12" x2="19" x1="5"></line>
+            </svg></span>
           </button>
-          
         </div>
-        <div *ngFor="let s of trip.steps" class="d-flex flex-column my-3 border border-black p-2 me-4" 
-        (click)="onStepClick(s)">
-  <div class="d-flex gap-3">
-    <h4>{{s.description}}</h4>
-    <div class="date-text align-self-center">{{s.arrivalDate | date: 'MMMM-yyyy'}} - {{s.departureDate | date: 'MMMM-yyyy'}}</div>
-  </div>
-  <div class="carousel-container">
-    <ngb-carousel *ngIf="s.images && s.images.length">
-      <ng-template ngbSlide *ngFor="let image of s.images; let i = index">
-        <div class="picsum-img-wrapper">
-          <img [src]="image.imageURL" [alt]="'Image ' + (i + 1)" class="carousel-image" />
+        <div *ngFor="let s of trip.steps" class="d-flex flex-column my-3 border border-black p-2 me-4" (click)="onStepClick(s)">
+          <div class="d-flex gap-3">
+            <h4>{{s.description}}</h4>
+            <div class="date-text align-self-center">{{s.arrivalDate | date: 'MMMM-yyyy'}} - {{s.departureDate | date: 'MMMM-yyyy'}}</div>
+          </div>
+          <div class="carousel-container">
+            <ngb-carousel *ngIf="s.images && s.images.length">
+              <ng-template ngbSlide *ngFor="let image of s.images; let i = index">
+                <div class="picsum-img-wrapper">
+                  <img [src]="image.imageURL" [alt]="'Image ' + (i + 1)" class="carousel-image" />
+                </div>
+                <div class="carousel-caption"></div>
+              </ng-template>
+            </ngb-carousel>
+          </div>
+          <div class="d-flex justify-content-between my-2">
+            <div class="d-flex align-items-start gap-3">
+              <button class="btn btn-outline-info">Likes {{s.like}}</button>
+              <button class="btn btn-outline-info">Comments {{s.comments}}</button>
+            </div>
+            <div>
+              <button class="btn btn-outline-info" (click)="openEditStepModal(s)">Edit Step</button>
+            </div>
+          </div>
         </div>
-        <div class="carousel-caption">
-          
-        </div>
-      </ng-template>
-    </ngb-carousel>
-  </div>
-  <div class="d-flex justify-content-between my-2">
-    <div class="d-flex align-items-start gap-3">
-      <button class="btn btn-outline-info">Likes {{s.like}}</button>
-      <button class="btn btn-outline-info">Comments {{s.comments}}</button>
-    </div>
-    <div>
-      <button class="btn btn-outline-info">Edit Step</button>
-    </div>
-  </div>
-  
-</div>
-        
-
       </div>
     </div>
 
-
-   
-    <div class="col-7 p-0 m-0">
-      <div id="map" class="p-0 m-0"></div>
+    <div *ngIf="showForm" class="col-5 mt-2 trips-container p-3" id="emme">
+      <app-step [tripId]="trip!.id" (stepSaved)="toggleForm()" (formClosed)="closeForm()"></app-step>
     </div>
     
-    
-    
-  </div>
 
+    <div class="col-7 p-0 m-0">
+      <app-position [interactive]="showForm"></app-position>
+    </div>
+  </div>
 </div>

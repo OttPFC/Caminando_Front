@@ -1,11 +1,14 @@
 <div>
-  <div class="modal-header">
-    <h4 class="modal-title">Add Step</h4>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <div class="d-flex justify-content-between">
+    <h4 class="" >Add Step</h4>
+    <div class="wrapper " (click)="goBack()">
+      <div class="arrow">
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </div>
   </div>
-  <div class="modal-body">
+  <div class=" ">
     <form [formGroup]="stepForm" (ngSubmit)="saveStep()">
       <div class="form-group">
         <label for="description">Description</label>
@@ -43,18 +46,26 @@
       <div class="form-group">
         <label for="nomeLocalita">Nome Località</label>
         <input id="nomeLocalita" formControlName="nomeLocalita" class="form-control" />
-      </div>
-      <div class="form-group">
-        <button type="button" class="btn btn-secondary" (click)="openMapModal()">Select Coordinates</button>
+        <ul class="list-group" *ngIf="locationSuggestions.length > 0">
+          <li class="list-group-item" *ngFor="let suggestion of locationSuggestions" (click)="selectSuggestion(suggestion)">
+            {{ suggestion.place_name }}
+          </li>
+        </ul>
       </div>
     </form>
     
-    <div class="form-group">
+    
+    
+    <div class="wrapper2 mt-2">
       <label for="file">Upload Images</label>
-      <input type="file" id="file" (change)="onFilesSelected($event)" multiple class="form-control-file" />
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+  <div class="file-upload">
+    
+    <input type="file" (change)="onFilesSelected($event)" multiple class="form-control-file" />
+    <i class="bi bi-arrow-up-circle fs-4"></i>
+  </div>
+</div>
+    <div class="d-flex gap-2 justify-content-end">
+      <button type="button" class="btn btn-secondary" (click)="goBack()" >Close</button>
       <button type="submit" class="btn btn-primary" [disabled]="stepForm.invalid || positionForm.invalid" (click)="saveStep()">Save</button>
     </div>
   </div>

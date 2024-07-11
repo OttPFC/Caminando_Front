@@ -22,6 +22,7 @@ export class TripSettingsModalComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit() {
+    
     this.getTrip(this.tripId);
   }
 

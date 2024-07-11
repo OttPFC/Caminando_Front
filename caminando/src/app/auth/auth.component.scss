@@ -60,10 +60,15 @@ body, html {
     background-color:#282E34;
     
     text-align:center;
-    padding:30px 40px;
-    text-align: justify;
+    
+    
   }
 
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
 
 
   @media only screen and (max-device-width: 1024px) {
@@ -90,8 +95,8 @@ body, html {
     font-weight: 600;
     border: none;
     position: absolute;
-    top: 50%;
-    left: 46%;
+    top: 60%;
+    left: 45%;
     cursor: pointer;
     transition-duration: .2s;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.116);
@@ -196,3 +201,43 @@ body, html {
         }
       }
       
+
+      /* auth.component.scss */
+.animation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.logo__letters {
+  display: flex;
+  gap: 10px;
+}
+
+.logo__letter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo__character {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.logo__loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo__loader {
+  display: none;
+}
+
+.is-loaded .logo__loader {
+  display: block;
+}

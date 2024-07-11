@@ -14,7 +14,7 @@ import { Route, Router } from '@angular/router';
 })
 export class TripComponent implements OnInit {
 
-  @Output() tripSelected = new EventEmitter<number>();
+  
   map!: mapboxgl.Map;
   errorMessage: string | null = null;
   user: IRegisterUser | undefined;

@@ -7,13 +7,14 @@ import { CreateTripComponent } from './create/create-trip/create-trip.component'
 import { EditTripComponent } from './edit/edit-trip/edit-trip.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowTripComponent } from './visual/show-trip/show-trip.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSplideModule } from 'ngx-splide';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PositionComponent } from '../../components/position/position.component';
 import { TripBoardComponent } from './trip-board/trip-board.component';
 import { StepComponent } from '../../components/step/step.component';
+import { TripSettingsModalComponent } from '../../components/trip-settings-modal/trip-settings-modal.component';
 
 
 
@@ -25,17 +26,17 @@ import { StepComponent } from '../../components/step/step.component';
     ShowTripComponent,
     PositionComponent,
     TripBoardComponent,
-    StepComponent
+    StepComponent,
   ],
   imports: [
     CommonModule,
     TripRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     NgxSplideModule,
     NgbModule
-
-    
-  ]
+  ],
+  
 })
 export class TripModule { }

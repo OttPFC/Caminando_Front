@@ -43,10 +43,22 @@ export class CreateTripComponent implements OnInit {
     });
   }
 
+  formatDate(date: { year: number, month: number, day: number }): string {
+    const month = date.month < 10 ? `0${date.month}` : date.month;
+    const day = date.day < 10 ? `0${date.day}` : date.day;
+    return `${date.year}-${month}-${day}`;
+  }
   addTrip() {
     if (this.tripForm.valid) {
+      const formValues = this.tripForm.value;
+      const formattedStartDate = this.formatDate(formValues.startDate);
+      const formattedEndDate = this.formatDate(formValues.endDate);
       this.isLoading = true;
-      const trip: ITrip = this.tripForm.value;
+      const trip: ITrip = {
+      ...this.tripForm.value,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate
+      };
       this.tripSvc.addTrip(trip).subscribe({
         next: (createdTrip) => {
           console.log('Trip creato con successo:', createdTrip);

@@ -17,15 +17,25 @@
         </div>
         <div class="row">
           <div class="col-6">
-            <h6>Start Date</h6>
-            <div class="input-group">
-              <input type="date" formControlName="startDate"/>
+            <div class="form-group">
+              <label for="arrivalDate">Start Date</label>
+              <div class="input-group">
+                <input id="arrivalDate" formControlName="startDate" class="form-control" ngbDatepicker #startDp="ngbDatepicker" />
+                <div class="input-group-append ms-1">
+                  <button class="btn btn-outline-primary" (click)="startDp.toggle()" type="button"> 📅</button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-6">
-            <h6>End Date</h6>
-            <div class="input-group">
-              <input type="date" formControlName="endDate"/>
+            <div class="form-group">
+              <label for="departureDate">End Date</label>
+              <div class="input-group">
+                <input id="departureDate" formControlName="endDate" class="form-control" ngbDatepicker #endDp="ngbDatepicker" />
+                <div class="input-group-append ms-1">
+                  <button class="btn btn-outline-primary" (click)="endDp.toggle()" type="button"> 📅</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

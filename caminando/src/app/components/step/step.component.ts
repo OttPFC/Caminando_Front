@@ -1,31 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
 import { StepService } from '../../services/step.service';
 import { IPosition } from '../../interfaces/position';
 import { IStep } from '../../interfaces/step';
 import { StepPositionModel } from '../../interfaces/step-position-model';
-import { PositionComponent } from '../position/position.component';
+import { PositionService } from '../../services/position.service';
+import { Router } from '@angular/router';
+import { debounceTime, switchMap } from 'rxjs';
+import iziToast from 'izitoast';
 
 @Component({
-  selector: 'app-step', 
+  selector: 'app-step',
   templateUrl: './step.component.html',
   styleUrls: ['./step.component.scss']
 })
 export class StepComponent implements OnInit {
+
   @Input() tripId!: number;
+  @Output() stepSaved = new EventEmitter<void>();
+  @Output() formClosed = new EventEmitter<void>();
+
   stepForm: FormGroup;
   positionForm: FormGroup;
   selectedFiles: File[] = [];
+  locationSuggestions: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private stepService: StepService,
-    public activeModal: NgbActiveModal,
+    private positionService: PositionService,
     private router: Router,
-    private route: ActivatedRoute,
-    private modalService: NgbModal
+    private cdr: ChangeDetectorRef
   ) {
     this.stepForm = this.fb.group({
       description: ['', Validators.required],
@@ -41,40 +46,84 @@ export class StepComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.tripId === undefined) {
-      this.tripId = +this.route.snapshot.params['tripId'];
+    this.positionService.currentPosition.subscribe(position => {
+      this.positionForm.patchValue({
+        latitude: position.latitude,
+        longitude: position.longitude,
+        nomeLocalita: position.placeName || ''
+      });
+    });
+    this.positionForm.get('nomeLocalita')?.valueChanges.pipe(
+      debounceTime(300),
+      switchMap(value => this.positionService.searchLocation(value))
+    ).subscribe(suggestions => {
+      this.locationSuggestions = suggestions;
+      this.cdr.detectChanges();
+    });
+  }
+
+  selectSuggestion(suggestion: any) {
+    this.positionForm.patchValue({
+      nomeLocalita: suggestion.place_name,
+      latitude: suggestion.center[1],
+      longitude: suggestion.center[0]
+    });
+    console.log(suggestion);
+    console.log(this.locationSuggestions);
+    this.locationSuggestions = [];
+    console.log('Suggerimenti dopo selezione:', this.locationSuggestions); // Per debug
+    this.cdr.detectChanges();
+  }
+
+   saveStep(): void {
+    if (this.stepForm.valid && this.positionForm.valid) {
+      const formValues = this.stepForm.value;
+      const formattedArrivalDate = this.formatDate(formValues.arrivalDate);
+      const formattedDepartureDate = this.formatDate(formValues.departureDate);
+  
+      const position: IPosition = {
+        ...this.positionForm.value,
+        timestamp: new Date().toISOString().split('T')[0]  // aggiorna il timestamp al momento del salvataggio
+      };
+  
+      const step: IStep = {
+        ...this.stepForm.value,
+        id: 0,
+        arrivalDate: formattedArrivalDate,
+        departureDate: formattedDepartureDate
+      };
+  
+      const stepPositionModel: StepPositionModel = { step, position };
+      this.stepService.addStep(stepPositionModel, this.tripId).subscribe({
+        next: (createdStepPositionModel : IStep) => {
+          const step = createdStepPositionModel.id;
+          
+          if (createdStepPositionModel && createdStepPositionModel.id && createdStepPositionModel.id) {
+            if (this.selectedFiles.length > 0) {
+              this.stepService.uploadStepImages(createdStepPositionModel.id, this.selectedFiles).subscribe({
+                next: () => {
+                  console.log('Immagini del passaggio caricate con successo');
+                  iziToast.success({
+                    title: 'Success',
+                    message: 'Step saved successfully',
+                    position: 'bottomCenter'
+                  });
+                  window.location.reload();
+                },
+                error: (err) => console.error('Errore durante il caricamento delle immagini', err)
+              });
+            } else {
+              this.router.navigate(['/trip', this.tripId]);
+            }
+          } else {
+            console.error('La risposta del servizio non contiene uno step valido o un ID');
+          }
+        },
+        error: (err) => console.error('Errore durante la creazione dello step', err)
+      });
     }
   }
-
-  closeModal(): void {
-    this.activeModal.close();
-  }
-  openMapModal() {
-    const modalRef = this.modalService.open(PositionComponent, {
-      backdrop: 'static',
-      keyboard: false
-    });
-
-    modalRef.result.then((coordinates: { latitude: number, longitude: number }) => {
-      if (coordinates) {
-        this.positionForm.patchValue({
-          latitude: coordinates.latitude,
-          longitude: coordinates.longitude
-        });
-      }
-    }, (reason) => {
-      console.log('Map modal dismissed:', reason);
-    });
-  }
-
-
-  formatDate(date: { year: number, month: number, day: number }): string {
-    const month = date.month < 10 ? `0${date.month}` : date.month;
-    const day = date.day < 10 ? `0${date.day}` : date.day;
-    return `${date.year}-${month}-${day}`;
-  }
-
-  saveStep(): void {
+  saveStep2(): void {
     if (this.stepForm.valid && this.positionForm.valid) {
       const formValues = this.stepForm.value;
       const formattedArrivalDate = this.formatDate(formValues.arrivalDate);
@@ -111,13 +160,13 @@ export class StepComponent implements OnInit {
               this.stepService.uploadStepImages(createdStepPositionModel.id, this.selectedFiles).subscribe({
                 next: () => {
                   console.log('Immagini del passaggio caricate con successo');
-                  this.activeModal.close();
+                  
                   window.location.reload();
                 },
                 error: (err) => console.error('Errore durante il caricamento delle immagini', err)
               });
             } else {
-              this.activeModal.close();
+              
               this.router.navigate(['/trip', this.tripId]);
             }
           } else {
@@ -128,13 +177,19 @@ export class StepComponent implements OnInit {
       });
     }
   }
-  
-  
-  
+  formatDate(date: { year: number, month: number, day: number }): string {
+    const month = date.month < 10 ? `0${date.month}` : date.month;
+    const day = date.day < 10 ? `0${date.day}` : date.day;
+    return `${date.year}-${month}-${day}`;
+  }
 
   onFilesSelected(event: any): void {
     if (event.target.files.length > 0) {
       this.selectedFiles = Array.from(event.target.files);
     }
+  }
+
+  goBack(): void {
+    this.formClosed.emit();
   }
 }

@@ -8,6 +8,7 @@ import { IntineraryComponent } from './intinerary.component';
 @NgModule({
   declarations: [
     IntineraryComponent
+    
   ],
   imports: [
     CommonModule,
