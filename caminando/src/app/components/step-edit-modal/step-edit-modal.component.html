@@ -1,28 +1,46 @@
 <div class="modal-header">
-    <h4 class="modal-title">Edit Step</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="stepForm">
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" formControlName="description" class="form-control"></textarea>
+  <h4 class="modal-title">Edit Step</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="stepForm">
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="arrivalDate">Arrival Date</label>
+      <input id="arrivalDate" type="date" formControlName="arrivalDate" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="departureDate">Departure Date</label>
+      <input id="departureDate" type="date" formControlName="departureDate" class="form-control" />
+    </div>
+  </form>
+
+  <!-- Gestione delle Immagini -->
+  <div class="form-group">
+    <label>Images</label>
+    <div class="row my-2">
+      <div *ngFor="let image of step.images; let i = index" class="col-3 img-fluid d-flex flex-column p-0 align-items-center mb-2">
+          <img [src]="image.imageURL" class="img-thumbnail custom-img mb-2" />
+          <button class="btn btn-danger btn-sm custom-but p-0" (click)="deleteImage(image.id)">X</button>
       </div>
-      <div class="form-group">
-        <label for="arrivalDate">Arrival Date</label>
-        <input id="arrivalDate" type="date" formControlName="arrivalDate" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="departureDate">Departure Date</label>
-        <input id="departureDate" type="date" formControlName="departureDate" class="form-control" />
-      </div>
-    </form>
+    </div>
+    <div class="wrapper2 mt-2">
+      <label for="file">Upload Images</label>
+  <div class="file-upload">
+    
+    <input type="file" (change)="onFileSelected($event)" multiple class="form-control-file" />
+    <i class="bi bi-arrow-up-circle fs-4"></i>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="deleteStep()">Delete</button>
-    <button type="button" class="btn btn-primary" (click)="saveStep()">Save</button>
+</div>
   </div>
-  
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
+  <button type="button" class="btn btn-danger" (click)="deleteStep()">Delete</button>
+  <button type="button" class="btn btn-primary" (click)="saveStep()">Save</button>
+</div>

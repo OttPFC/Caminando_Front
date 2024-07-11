@@ -28,6 +28,10 @@ export class StepService {
       .pipe(map(response => response.content));
   }
 
+  getStepById(id: number): Observable<IStep> {
+    return this.http.get<IStep>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() });
+  }
+  
   updateStep(id: number, stepRequestDTO: IStep): Observable<IStep> {
     return this.http.put<IStep>(`${this.apiUrl}/${id}`, stepRequestDTO, { headers: this.getAuthHeaders() });
   }
@@ -35,6 +39,8 @@ export class StepService {
   deleteStep(id: number): Observable<IStep> {
     return this.http.delete<IStep>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
+
+
 
   uploadStepImages(id: number, files: File[]): Observable<IStep> {
     const formData: FormData = new FormData();

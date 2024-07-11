@@ -118,6 +118,7 @@ export class TripSettingsModalComponent implements OnInit {
     if (this.trip) {
       this.tripService.updateTrip(this.trip.id, this.trip).subscribe({
         next: (updatedTrip) => {
+          console.log(updatedTrip)
           iziToast.success({
             title: 'Success',
             message: 'Trip successfully updated.',
