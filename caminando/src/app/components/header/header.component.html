@@ -11,8 +11,10 @@
         <li><a [routerLink]="['/itinerary']" [routerLinkActive]="'active'" class="nav-link px-2 link-body-emphasis">Itinerary</a></li>
         <div class="search-box me-2">
           <button class="btn-search"><i class="bi bi-search"></i></button>
-          <input type="text" class="input-search" placeholder="Type to Search...">
+          <input type="text" class="input-search" placeholder="Type to Search..." (keyup)="searchUsers($event)">
         </div>
+        
+
       </ul>
 
       
@@ -27,8 +29,21 @@
           <li><a class="dropdown-item" (click)="logout()">Sign out</a></li>
         </ul>
       </div>
-
-      
+    </div>
+    <div *ngIf="users.length > 0" class="search-results mt-3">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let user of users" class="list-group-item" (click)="selectUser(user)" >
+          <div class="d-flex">
+            <img [src]="user.image!.imageURL"  alt="Profile" class="logo2">
+          <div class="d-flex flex-column ms-2">
+            <p class="testo p-0 m-0">{{user.firstName}} {{user.lastName}}</p>
+          <p class="testo p-0 m-0">{{ user.username }}</p>
+          </div>
+          </div>
+          
+        </li>
+        <li class="list-group-item p-1 text-center" (click)="clearResults()">Clear Results</li>
+      </ul>
     </div>
   </div>
 </div >

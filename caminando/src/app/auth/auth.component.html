@@ -11,24 +11,23 @@
 <!-- auth.component.html -->
 <!-- auth.component.html -->
 <div class="animation-container">
-  <div *ngIf="showLoader">
-    <l-ring size="60" color="coral"></l-ring>
-  </div>
-  <div *ngIf="showLetters" class="logo__letters">
+  <div  class="logo__letters">
     <div *ngFor="let letter of letters" class="logo__letter" [ngClass]="{'is-loaded': letter.visible}">
-      <div class="logo__character">{{ letter.char }}</div>
-      <div class="logo__loader-wrapper" *ngIf="letter.visible">
-        <ng-container [ngSwitch]="letter.loader">
-          <l-helix *ngSwitchCase="'helix'" class="logo__loader is-visible" color="var(--logo-loader-color)" size="50" speed="2.5"></l-helix>
-          <l-ring *ngSwitchCase="'ring'" class="logo__loader is-visible" color="var(--logo-loader-color)" stroke="5.5" size="45" speed="2" bg-opacity="0"></l-ring>
-          <l-bouncy *ngSwitchCase="'bouncy'" class="logo__loader is-visible" color="var(--logo-loader-color)" size="50" speed="1.75"></l-bouncy>
-          <l-waveform *ngSwitchCase="'waveform'" class="logo__loader is-visible" color="var(--logo-loader-color)" stroke="3.5" size="45" speed="1"></l-waveform>
-          <l-square *ngSwitchCase="'square'" class="logo__loader is-visible" color="var(--logo-loader-color)" size="50" speed="1.75"></l-square>
-          <l-reuleaux *ngSwitchCase="'reuleaux'" class="logo__loader is-visible" color="var(--logo-loader-color)" size="50" speed="1.75"></l-reuleaux>
-          <l-tail-chase *ngSwitchCase="'tail-chase'" class="logo__loader is-visible" color="var(--logo-loader-color)" size="50" speed="1.75"></l-tail-chase>
-          <l-dot-spinner *ngSwitchCase="'dot-spinner'" class="logo__loader is-visible" color="var(--logo-loader-color)" size="50" speed="1.75"></l-dot-spinner>
-          <l-spiral *ngSwitchCase="'spiral'" class="logo__loader is-visible" color="var(--logo-loader-color)" size="50" speed="1.75"></l-spiral>
+      <div class="logo__character" *ngIf="letter.visible">{{ letter.char }}</div>
+      <div class="logo__loader-wrapper" *ngIf="letter.loaderVisible">
+        <!--
+        <ng-container [ngSwitch]="letter.loader"> 
+          <l-helix *ngSwitchCase="'helix'" size="100" stroke="4" stroke-length="0.15" bg-opacity="0.1" speed="1.4" color="orange"></l-helix>
+          <l-ring *ngSwitchCase="'ring'" size="70" stroke="4" stroke-length="0.15" bg-opacity="0.1" speed="1.4" color="blue"></l-ring>
+          <l-quantum *ngSwitchCase="'quantum'" size="100"  speed="1.75"  color="violet" ></l-quantum>
+          <l-miyagi *ngSwitchCase="'miyagi'" size="100"  stroke="3.5"  speed="0.9"  color="green" ></l-miyagi>
+          <l-spiral *ngSwitchCase="'spiral'" size="100" speed="0.9" color="red"></l-spiral>
+          <l-bouncy *ngSwitchCase="'bouncy'" size="100"  speed="1.4" color="red"></l-bouncy>
+          <l-waveform *ngSwitchCase="'waveform'"  size="100"  stroke="3.5"  speed="1"  color="black" ></l-waveform>
+          <l-hatch *ngSwitchCase="'hatch'" size="100"  stroke="4"  speed="3.5"  color="black" ></l-hatch>
+          <l-grid *ngSwitchCase="'grid'"  size="100"  speed="1.5"  color="black" ></l-grid>
         </ng-container>
+        -->
       </div>
     </div>
   </div>
@@ -80,14 +79,15 @@
 <div class="position-relative">
   <div class="banner py-4">
     <p>Scorri la pagina su e giù per vedere come funziona l'effetto parallasse.</p>
-    <l-ring size="60" color="coral"></l-ring> <!-- Aggiungi qui l'animazione -->
+    
   </div>
 </div> 
-<div class="image-3">
-  <div class="container col-xxl-8 px-4 py-5 caption-2">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+<div class="image-3 ">
+  <div class="container col-xxl-8 px-4  caption-2">
+    <div class="row flex-lg-row-reverse align-items-center g-5 ">
       <div class="col-10 col-sm-8 col-lg-6">
-        <div class="d-flex gap-2 d-md-flex justify-content-md-end align-items-center">
+        <div class="d-flex flex-column gap-2 d-md-flex justify-content-md-end align-items-end">
+          <div id="box" [routerLink]="['/login', { register: true }]"></div>
           <button class="button-2" [routerLink]="['/login', { register: true }]">
             Register Now
             <svg fill="currentColor" viewBox="0 0 24 24" class="icon-2">
@@ -96,9 +96,11 @@
           </button>
         </div>
       </div>
-      <div class="col-lg-6 text-center">
-        <p class="lead fw-bold">I travel not to go somewhere, but to go. I travel to travel. The great thing is to move, to feel the itch of our life more acutely, to get off this feather bed of civilization and feel the granite of the globe under our feet.</p>
+      <div class="col-lg-6 text-center ">
+        
+        <p class="lead fw-bold ">I travel not to go somewhere, but to go. I travel to travel. The great thing is to move, to feel the itch of our life more acutely, to get off this feather bed of civilization and feel the granite of the globe under our feet.</p>
         <cite class="">Robert Louis Stevenson</cite>
+        
       </div>
     </div>
   </div>

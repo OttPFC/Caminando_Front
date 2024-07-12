@@ -7,7 +7,11 @@
     height: 30px;
     
 }
-
+.logo2{
+  width: 40px;
+  height: 40px;
+  
+}
 .image-profile{
     width: 40px;
     height: 40px;
@@ -71,3 +75,25 @@
     border-bottom:1px solid rgba(255,255,255,.5);
     transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
   }
+
+  .testo{
+    font-size: 20px;
+  }
+
+  .search-results {
+    margin-left: 120px;
+    max-height: 150px; /* Limita l'altezza massima della lista risultati */
+    overflow-y: auto; /* Aggiungi una barra di scorrimento verticale se necessario */
+    width: 400px;
+  }
+  
+  .list-group-item {
+    font-size: 0.8em; /* Riduci la dimensione del testo */
+    padding: 0.5em 1em; /* Riduci il padding degli elementi */
+  }
+  
+  .image-profile {
+    width: 30px; /* Riduci la dimensione dell'immagine del profilo */
+    height: 30px; /* Riduci la dimensione dell'immagine del profilo */
+  }
+  

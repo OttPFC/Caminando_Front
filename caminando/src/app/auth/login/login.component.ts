@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         });
         setTimeout(() => {
           this.router.navigate(['/trip']);
-        }, 2000);
+        }, 1000);
         console.log('Login successful');
       },
       error: (error) => {

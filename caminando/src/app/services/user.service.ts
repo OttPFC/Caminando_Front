@@ -34,6 +34,11 @@ export class UserService {
     return this.http.get<IRegisterUser>(`${this.userUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
 
+  searchUsersByName(firstName: string): Observable<IRegisterUser[]> {
+    return this.http.get<IRegisterUser[]>(`${this.userUrl}/search?firstName=${firstName}`, { headers: this.getAuthHeaders() });
+  }
+
+
   updateUser(id: number, user: IRegisterUser): Observable<IRegisterUser> {
     return this.http.put<IRegisterUser>(`${environment.userUrl}/${id}`, user, { headers: this.getAuthHeaders() });
   }
