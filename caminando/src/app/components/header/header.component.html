@@ -20,7 +20,7 @@
       
       <div *ngIf="user" class="dropdown text-end">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="{{user.image!.imageURL}}" alt="Profile" class="image-profile">
+          <img src="{{user.image?.imageURL}}" alt="Profile" class="image-profile">
         </a>
         <ul class="dropdown-menu text-small">
           <li><a class="dropdown-item" [routerLink]="['/profilePage']" [routerLinkActive]="'active'" >Profile</a></li>
@@ -34,7 +34,7 @@
       <ul class="list-group list-group-flush">
         <li *ngFor="let user of users" class="list-group-item" (click)="selectUser(user)" >
           <div class="d-flex">
-            <img [src]="user.image!.imageURL"  alt="Profile" class="logo2">
+            <img [src]="user.image?.imageURL"  alt="Profile" class="logo2">
           <div class="d-flex flex-column ms-2">
             <p class="testo p-0 m-0">{{user.firstName}} {{user.lastName}}</p>
           <p class="testo p-0 m-0">{{ user.username }}</p>

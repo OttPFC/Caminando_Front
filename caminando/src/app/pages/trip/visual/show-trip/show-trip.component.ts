@@ -25,7 +25,9 @@ export class ShowTripComponent implements OnInit {
   @Output() tripSelected = new EventEmitter<number>();
   @ViewChild(PositionComponent) positionComponent!: PositionComponent;
   initialPosition: [number, number] = [12.4964, 41.9028];
-  
+
+  showCommentForm: { [key: number]: boolean } = {};
+
   errorMessage: string | null = null;
   trip: ITrip | undefined;
   user: IRegisterUser | undefined;
@@ -54,6 +56,7 @@ export class ShowTripComponent implements OnInit {
     }
   }
 
+
   openEditStepModal(step: IStep) {
     const modalRef = this.modalService.open(StepEditModalComponent);
     modalRef.componentInstance.step = step;
@@ -73,7 +76,9 @@ export class ShowTripComponent implements OnInit {
 toggleForm() {
     this.showForm = !this.showForm;
   }
-  
+  toggleCommentForm(stepId: number) {
+  this.showCommentForm[stepId] = !this.showCommentForm[stepId];
+}
 
   loadUser() {
     this.authService.user$.subscribe({

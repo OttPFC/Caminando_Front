@@ -63,11 +63,15 @@
           <div class="d-flex justify-content-between my-2">
             <div class="d-flex align-items-start gap-3">
               <button class="btn btn-outline-info">Likes {{s.like}}</button>
-              <button class="btn btn-outline-info">Comments {{s.comments}}</button>
+              <button class="btn btn-outline-info" (click)="toggleCommentForm(s.id)">Comments {{s.comments}}</button>
             </div>
             <div>
               <button class="btn btn-outline-info" (click)="openEditStepModal(s)">Edit Step</button>
             </div>
+          </div>
+          <div *ngIf="showCommentForm[s.id]" class="comment-form mt-2">
+            <textarea class="form-control mb-2" rows="3" placeholder="Write a comment..."></textarea>
+            <button class="btn btn-primary">Submit Comment</button>
           </div>
         </div>
       </div>
