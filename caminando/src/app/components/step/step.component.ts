@@ -131,7 +131,7 @@ export class StepComponent implements OnInit {
   
       const position: IPosition = {
         ...this.positionForm.value,
-        timestamp: new Date().toISOString().split('T')[0]  // aggiorna il timestamp al momento del salvataggio
+        timestamp: new Date().toISOString().split('T')[0]  
       };
   
       const step: IStep = {

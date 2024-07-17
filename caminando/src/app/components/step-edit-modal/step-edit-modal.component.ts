@@ -5,7 +5,7 @@ import { IStep } from '../../interfaces/step';
 import { StepService } from '../../services/step.service';
 import iziToast from 'izitoast';
 import { ImagesService } from '../../services/general/images.service';
-import { switchMap } from 'rxjs';
+import { forkJoin, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-step-edit-modal',
@@ -49,15 +49,17 @@ export class StepEditModalComponent implements OnInit {
   saveStep() {
     if (this.stepForm.valid) {
       const updatedStep = { ...this.step, ...this.stepForm.value };
-      this.stepService.updateStep(this.step.id, updatedStep).pipe(
-        switchMap(() => {
-          if (this.selectedFiles.length > 0) {
-            return this.stepService.uploadStepImages(this.step.id, this.selectedFiles);
-          } else {
-            return [];
-          }
-        })
-      ).subscribe({
+  
+      // Esegui sempre l'aggiornamento del Step
+      const updateStep$ = this.stepService.updateStep(this.step.id, updatedStep);
+  
+      // Carica le immagini solo se ce ne sono di selezionate
+      const uploadImages$ = this.selectedFiles.length > 0
+        ? this.stepService.uploadStepImages(this.step.id, this.selectedFiles)
+        : of(null); // Ritorna un observable vuoto se non ci sono immagini
+  
+      // Esegui entrambi gli observable in parallelo
+      forkJoin([updateStep$, uploadImages$]).subscribe({
         next: () => {
           iziToast.success({
             title: 'Success',
@@ -78,6 +80,7 @@ export class StepEditModalComponent implements OnInit {
       });
     }
   }
+  
 
   deleteStep() {
     this.stepService.deleteStep(this.step.id).subscribe({
