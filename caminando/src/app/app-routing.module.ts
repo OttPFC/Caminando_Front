@@ -37,24 +37,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { 
-    path: 'create', 
-    loadChildren: () => import('./backOffice/create/create.module').then(m => {
-      console.log('Loaded CreateModule');
-      return m.CreateModule;
-    }), 
-    title: "Caminando | Create",
-    canActivate: [AuthGuard]
-  },
-  { 
-    path: 'edit', 
-    loadChildren: () => import('./backOffice/edit/edit.module').then(m => {
-      console.log('Loaded EditModule');
-      return m.EditModule;
-    }),
-    title: "Caminando | Edit",
-    canActivate: [AuthGuard]
-  },
-  { 
     path: 'itinerary', 
     loadChildren: () => import('./pages/intinerary/intinerary.module').then(m => {
       console.log('Loaded IntineraryModule');

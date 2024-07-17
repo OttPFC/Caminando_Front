@@ -61,7 +61,7 @@ export class TripBoardComponent {
   getAllTrips(page: number, pageSize: number) {
     this.tripService.getAllTrips(page, pageSize).subscribe({
       next: (trips) => {
-        console.log('Trips received:', trips); // Aggiungi questo log
+        console.log('Trips received:', trips); 
         this.trips = trips;
       },
       error: (error) => {

@@ -51,13 +51,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
   showRegisterForm(): void {
     setTimeout(() => {
       this.container?.nativeElement.classList.add('right-panel-active');
-    }, 0); // Using timeout to ensure the view is fully initialized
+    }, 0); 
   }
 
   showLoginForm(): void {
     setTimeout(() => {
       this.container?.nativeElement.classList.remove('right-panel-active');
-    }, 0); // Using timeout to ensure the view is fully initialized
+    }, 0); 
   }
 
   entra(): void {

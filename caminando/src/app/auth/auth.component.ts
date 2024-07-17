@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
   currentLetterIndex: number = 0;
 
   ngOnInit() {
-    // Crea un array di lettere con visibilità iniziale impostata su false e assegna un loader
+    
     this.letters = this.fullText.split('').map((char, index) => ({
       char,
       visible: false,
@@ -34,11 +34,11 @@ export class AuthComponent implements OnInit {
       loader: this.loaders[index % this.loaders.length]
     }));
 
-    // Imposta un timer per nascondere il loader iniziale dopo 2 secondi e iniziare a mostrare le lettere
+    
     setTimeout(() => {
       this.showLoader = false;
       this.displayLetters();
-    }, 1000); // 2000 ms = 2 seconds
+    }, 1000); 
   }
 
   displayLetters() {
@@ -50,8 +50,8 @@ export class AuthComponent implements OnInit {
         this.currentLetterIndex++;
         setTimeout(() => {
           this.displayLetters();
-        }, 300); // 500 ms per lettera
-      }, 0); // 1000 ms = 1 second for loader
+        }, 300);
+      }, 0); 
     }
   }
 }

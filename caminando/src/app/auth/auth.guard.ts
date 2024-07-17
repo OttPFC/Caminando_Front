@@ -20,7 +20,7 @@ export class AuthGuard {
     console.log('AuthGuard#canActivate called');
     return this.authSvc.isLoggedIn$.pipe(
       map(isLoggedIn => {
-        console.log('isLoggedIn value:', isLoggedIn); // Aggiungi questo log
+        console.log('isLoggedIn value:', isLoggedIn);  
         if (isLoggedIn) {
           console.log('User is logged in');
           return true;

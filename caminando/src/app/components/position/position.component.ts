@@ -57,7 +57,7 @@ export class PositionComponent implements OnInit {
 
   updatePosition2(lngLat: mapboxgl.LngLat) {
     const timestamp = new Date().toISOString();
-    const nomeLocalita = 'Unknown'; // Puoi cambiarlo o cercare di ottenere un nome reale
+    const nomeLocalita = 'Unknown';  
     
     this.positionService.updatePosition2({ 
       latitude: lngLat.lat, 
